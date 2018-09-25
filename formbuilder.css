@@ -1,0 +1,30 @@
+.custom-file{
+    float: left;
+    position: relative;
+    height: 20px;
+}
+.custom-file #file {
+    position: absolute;
+    bottom:0;
+    left:0;
+    with: 100%;
+    height: 20px;
+    opacity: 0;
+}
+.custom-file span{
+    float: left;
+    font-size: 14px;
+    height: 18px;
+}
+.custom-file span.text {
+    width: 100px;
+}
+.custom-file span.button {
+    border:0px solid gray;
+}
+hr {
+    border-width: 3px;
+}
+.btn-default {
+    box-shadow: 1px 2px 5px #000000;
+}
