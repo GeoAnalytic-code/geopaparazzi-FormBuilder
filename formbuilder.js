@@ -29,6 +29,7 @@
 	File -> New 
 	Select first Form, first Form Item
 */
+gsServerUrl = "/tags/?format=json";
 gsFileName = null;
 goFiles = null;
 goSections = null;
@@ -137,7 +138,7 @@ function saveToServer(){	// To Do
 }
 function loadListFromServer(){
 // https://geo.trailstewards.com/tags/?format=json
-	$.getJSON( "files.json", function( data ) {
+	$.getJSON( gsServerUrl, function( data ) {
 		goFiles = data;
 		$('#sel-File').empty();
 		populateFileList(goFiles);
