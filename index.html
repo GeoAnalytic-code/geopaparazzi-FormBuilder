@@ -32,196 +32,196 @@
     -->
 
     <!-- ---- mobile friendly ---- -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="mobile-web-app-capable" content="yes">  <!-- makes Chrome go full-screen when saved to the Android Home Screen -->
-	<!-- for Chrome on mobile (Optional): -->
-	<link rel="manifest" href="manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="mobile-web-app-capable" content="yes">  <!-- makes Chrome go full-screen when saved to the Android Home Screen -->
+    <!-- for Chrome on mobile (Optional): -->
+    <link rel="manifest" href="manifest.json">
 
     <!-- ---- Style/Look ---- -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="formbuilder.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="formbuilder.css"/>
 </head>
 
 <body>
 <!-- For ElectronJS (Optional): --
-<script>window.$ = window.jQuery = require('jquery');</script>	
+<script>window.$ = window.jQuery = require('jquery');</script>  
 -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-	<a class="navbar-brand" href="#">FormBuilder</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
+    <a class="navbar-brand" href="#">FormBuilder</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
   
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-	  <ul class="navbar-nav mr-auto">
-		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				File
-			</a>
-			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				<a class="dropdown-item" onclick="clearAll();" href="#">New</a>
-				<a class="dropdown-item" onclick="document.getElementById('fileOpen').click();" href="#">Open Local File</a>
-					<input id="fileOpen" type="file" style="display:none;"/>
-				<a class="dropdown-item" onclick="saveJSON();document.getElementById('fileSave').click();" href="#">Save To Local Filesystem</a>
-					<a id="fileSave" href="#" style="display:none;"></a>
-				<a class="dropdown-item" onclick="loadListFromServer();" href="#">Load From Server</a>
-				<a class="dropdown-item" onclick="saveToServer();" href="#">Save To Server</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                File
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" onclick="clearAll();" href="#">New</a>
+                <a class="dropdown-item" onclick="document.getElementById('fileOpen').click();" href="#">Open Local File</a>
+                    <input id="fileOpen" type="file" style="display:none;"/>
+                <a class="dropdown-item" onclick="saveJSON();document.getElementById('fileSave').click();" href="#">Save To Local Filesystem</a>
+                    <a id="fileSave" href="#" style="display:none;"></a>
+                <a class="dropdown-item" onclick="loadListFromServer();" href="#">Load From Server</a>
+                <a class="dropdown-item" onclick="saveToServer();" href="#">Save To Server</a>
 
-			</div>
-		</li>
-		<li class="nav-item"><a class="nav-link" href="#">Help</a></li>
-	  </ul>
-	</div>
+            </div>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
+      </ul>
+    </div>
 </nav>
   
 <div class="container-fluid">
   <fieldset disabled id="fs-File-List">
-	  <div class="form-row">
-		<div class="col-2"><b>Tags File:</b>></div>
-		<div class="col-8">
-			<select class="form-control"  id="sel-File" onchange="onSelectFile(this.options[this.selectedIndex].value)"></select>
-		</div>
-	  </div>
+      <div class="form-row">
+        <div class="col-2"><b>Tags File:</b>></div>
+        <div class="col-8">
+            <select class="form-control"  id="sel-File" onchange="onSelectFile(this.options[this.selectedIndex].value)"></select>
+        </div>
+      </div>
   </fieldset>
   <hr><!-- ----------------------------------------------------------------------------------- -->
   <fieldset disabled id="fs-Section-List">
-	  <div class="form-row">
-		<label for="Name"><b>Sections:</b></label>
-	  </div>
-	  <div class="form-row">
-		<div class="col-8">
-			<select class="form-control"  size="6" id="sel-Section" onchange="onSelectSection(this.options[this.selectedIndex].value)"></select>
-		</div>
-		<div class="col">
-			<div class="btn-group-vertical" role="group" aria-label="Basic example">
-				<button type="button" class="btn btn-primary" onclick="onClickSectionNew()"    id="btn-SectionNew"   >New</button>
-				<button type="button" class="btn btn-primary" onclick="onClickSectionDelete()" id="btn-SectionDelete">Delete</button>
-				<button type="button" class="btn btn-primary" onclick="onClickSectionUp()"     id="btn-SectionUp"    >Up</button>
-				<button type="button" class="btn btn-primary" onclick="onClickSectionDown()"   id="btn-SectionDown"  >Down</button>
-			</div>	
-		</div>
-	  </div>
+      <div class="form-row">
+        <label for="Name"><b>Sections:</b></label>
+      </div>
+      <div class="form-row">
+        <div class="col-8">
+            <select class="form-control"  size="6" id="sel-Section" onchange="onSelectSection(this.options[this.selectedIndex].value)"></select>
+        </div>
+        <div class="col">
+            <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary" onclick="onClickSectionNew()"    id="btn-SectionNew"   >New</button>
+                <button type="button" class="btn btn-primary" onclick="onClickSectionDelete()" id="btn-SectionDelete">Delete</button>
+                <button type="button" class="btn btn-primary" onclick="onClickSectionUp()"     id="btn-SectionUp"    >Up</button>
+                <button type="button" class="btn btn-primary" onclick="onClickSectionDown()"   id="btn-SectionDown"  >Down</button>
+            </div>  
+        </div>
+      </div>
   </fieldset>
   <fieldset disabled id="fs-Section-Details">
-	  <div class="form-row">
-		<div class="col-4"><label for="Name">Key/Label:</label></div>
-		<div class="col"><label for="Name">Description:</label></div>
-	  </div>
-	  <div class="form-row">
-		<div class="col"><input type="text" class="form-control" id="section-Name"></div>
-		<div class="col"><input type="text" class="form-control" id="section-Description"></div>
-		<div class="col"><button type="button" class="btn btn-primary" onclick="onClickSectionSave()" id="btn-SectionSave">Save</button></div>
-	  </div>
+      <div class="form-row">
+        <div class="col-4"><label for="Name">Key/Label:</label></div>
+        <div class="col"><label for="Name">Description:</label></div>
+      </div>
+      <div class="form-row">
+        <div class="col"><input type="text" class="form-control" id="section-Name"></div>
+        <div class="col"><input type="text" class="form-control" id="section-Description"></div>
+        <div class="col"><button type="button" class="btn btn-primary" onclick="onClickSectionSave()" id="btn-SectionSave">Save</button></div>
+      </div>
   </fieldset>
   <hr><!-- ----------------------------------------------------------------------------------- -->
   <fieldset disabled id="fs-Form-List">
-	  <div class="form-row">
-		<label for="Name"><b>Forms:</b></label>
-	  </div>
-	  <div class="form-row">
-		<div class="col-8">
-			<select class="form-control" size="6" id="sel-Form" onchange="onSelectForm(this.options[this.selectedIndex].value)"></select>
-		</div>
-		<div class="col">
-			<label for="Name"></label>
-			<div class="btn-group-vertical">
-				<button type="button" class="btn btn-primary" onclick="onClickFormNew()"    id="btn-FormNew"   >New</button>
-				<button type="button" class="btn btn-primary" onclick="onClickFormDelete()" id="btn-FormDelete">Delete</button>
-				<button type="button" class="btn btn-primary" onclick="onClickFormUp()"     id="btn-FormUp"    >Up</button>
-				<button type="button" class="btn btn-primary" onclick="onClickFormDown()"   id="btn-FormDown"  >Down</button>
-			</div>	
-		</div>
-	  </div>
+      <div class="form-row">
+        <label for="Name"><b>Forms:</b></label>
+      </div>
+      <div class="form-row">
+        <div class="col-8">
+            <select class="form-control" size="6" id="sel-Form" onchange="onSelectForm(this.options[this.selectedIndex].value)"></select>
+        </div>
+        <div class="col">
+            <label for="Name"></label>
+            <div class="btn-group-vertical">
+                <button type="button" class="btn btn-primary" onclick="onClickFormNew()"    id="btn-FormNew"   >New</button>
+                <button type="button" class="btn btn-primary" onclick="onClickFormDelete()" id="btn-FormDelete">Delete</button>
+                <button type="button" class="btn btn-primary" onclick="onClickFormUp()"     id="btn-FormUp"    >Up</button>
+                <button type="button" class="btn btn-primary" onclick="onClickFormDown()"   id="btn-FormDown"  >Down</button>
+            </div>  
+        </div>
+      </div>
   </fieldset>
   <fieldset disabled id="fs-Form-Details">
-	  <div class="form-row">
-		<div class="col-4"><label for="Name">Key/Label:</label></div>
-	  </div>
-	  <div class="form-row">
-		<div class="col"><input type="text" class="form-control" id="form-Name"></div>
-		<div class="col"></div>
-		<div class="col"><button type="button" class="btn btn-primary" onclick="onClickFormSave()" id="btn-formSave">Save</button></div>
-	  </div>
+      <div class="form-row">
+        <div class="col-4"><label for="Name">Key/Label:</label></div>
+      </div>
+      <div class="form-row">
+        <div class="col"><input type="text" class="form-control" id="form-Name"></div>
+        <div class="col"></div>
+        <div class="col"><button type="button" class="btn btn-primary" onclick="onClickFormSave()" id="btn-formSave">Save</button></div>
+      </div>
   </fieldset>
   <hr><!-- ----------------------------------------------------------------------------------- -->
   <fieldset disabled id="fs-FormItem-List">
-	  <div class="form-row">
-		<label for="Name"><b>Form Items:</b></label>
-	  </div>
-	  <div class="form-row">
-		<div class="col-8">
-			<select class="form-control" size="7" id="sel-FormItem" onchange="onSelectFormItem(this.options[this.selectedIndex].value)"></select>
-		</div>
-		<div class="col">
-			<div class="btn-group-vertical">
-				<button type="button" class="btn btn-primary" onclick="onClickFormItemNew()"    id="btn-FormItemNew"   >New</button>
-				<button type="button" class="btn btn-primary" onclick="onClickFormItemDelete()" id="btn-FormItemDelete">Delete</button>
-				<button type="button" class="btn btn-primary" onclick="onClickFormItemUp()"     id="btn-FormItemUp"    >Up</button>
-				<button type="button" class="btn btn-primary" onclick="onClickFormItemDown()"   id="btn-FormItemDown"  >Down</button>
-			</div>	
-		</div>
-	  </div>
+      <div class="form-row">
+        <label for="Name"><b>Form Items:</b></label>
+      </div>
+      <div class="form-row">
+        <div class="col-8">
+            <select class="form-control" size="7" id="sel-FormItem" onchange="onSelectFormItem(this.options[this.selectedIndex].value)"></select>
+        </div>
+        <div class="col">
+            <div class="btn-group-vertical">
+                <button type="button" class="btn btn-primary" onclick="onClickFormItemNew()"    id="btn-FormItemNew"   >New</button>
+                <button type="button" class="btn btn-primary" onclick="onClickFormItemDelete()" id="btn-FormItemDelete">Delete</button>
+                <button type="button" class="btn btn-primary" onclick="onClickFormItemUp()"     id="btn-FormItemUp"    >Up</button>
+                <button type="button" class="btn btn-primary" onclick="onClickFormItemDown()"   id="btn-FormItemDown"  >Down</button>
+            </div>  
+        </div>
+      </div>
   </fieldset>
   <fieldset disabled id="fs-FormItem-Details">
-	  <div class="form-row">
-		<div class="col-4"><label for="formItem-Key">Key:</label></div>
-		<div class="col">  <label for="formItem-Label">Label:</label></div>
-	  </div>
-	  <div class="form-row">
-		<div class="col-4"><input type="text"    class="form-control" id="formItem-Key"></div>
-		<div class="col">  <input type="text"    class="form-control" id="formItem-Label"></div>
-		<div class="col">  <button type="button" class="btn btn-primary" onclick="onClickFormItemSave()" id="btn-formItemSave">Save</button></div>
-	  </div>	
-	  <div class="form-row">
-		<div class="col-4"><label for="formItem-Type">Type:</label></div>
-		<div class="col">  <label for="formItem-Value">Value:</label></div>
-	  </div>
-	  <div class="form-row">
-		<div class="col-4">
-			<select class="form-control" id="formItem-Type" onchange="onSelectFormItemType(this.options[this.selectedIndex].value)">
-				<option value="string">Text</option>
-				<option value="pictures">Picture</option>
-				<option value="sketch">Sketch</option>
-				<option value="map">Map</option>
-				<option value="dynamicstring">Multiple Text</option>
-				<option value="double">Decimal Number</option>
-				<option value="integer">Integer Number</option>
-				<option value="date">Date</option>
-				<option value="time">Time</option>
-				<option value="label">Form Label</option>
-				<option value="labelwithline">Underlined Label</option>
-				<option value="boolean">Checkbox</option>
-				<option value="stringcombo">Combo</option>
-				<option value="multistringcombo">Multiple Choice Combo</option>
-				<option value="connectedstringcombo">Two Connected Combos</option>
-				<option value="onetomanystringcombo">Sub Combos</option>
-				<option value="autocompletestringcombo">Combo w Autocomplete</option>
-				<option value="autocompleteconnectedstringcombo">Connected Combos w Autocomplete</option>
-				<option value="hidden">Hidden</option>
-				<option value="primary_key">Primary Key</option>				
-			</select>
-		</div>
-		<div class="col-4">
-			<input type="text" class="form-control" id="formItem-Value">
-		</div>
-		<div class="col">
-			<div class="form-check">
-				<input class="form-check-input" type="checkbox" value="" id="formItem-islabel">
-				<label class="form-check-label" for="islabel">Label On Map</label>
-			</div>
-			<div class="form-check">
-				<input class="form-check-input" type="checkbox" value="" id="formItem-mandatory">
-				<label class="form-check-label" for="mandatory">Mandatory</label>
-			</div>			
-		</div>
-	  </div>
-	  <div class="form-row" id="uniqueFormItems_labels_1">
-		  <!-- content created in JavaScript -->
-	  </div>
-	  <div class="form-row" id="uniqueFormItems_inputs_1">
-		  <!-- content created in JavaScript -->		  
-	  </div>
-	  
+      <div class="form-row">
+        <div class="col-4"><label for="formItem-Key">Key:</label></div>
+        <div class="col">  <label for="formItem-Label">Label:</label></div>
+      </div>
+      <div class="form-row">
+        <div class="col-4"><input type="text"    class="form-control" id="formItem-Key"></div>
+        <div class="col">  <input type="text"    class="form-control" id="formItem-Label"></div>
+        <div class="col">  <button type="button" class="btn btn-primary" onclick="onClickFormItemSave()" id="btn-formItemSave">Save</button></div>
+      </div>    
+      <div class="form-row">
+        <div class="col-4"><label for="formItem-Type">Type:</label></div>
+        <div class="col">  <label for="formItem-Value">Value:</label></div>
+      </div>
+      <div class="form-row">
+        <div class="col-4">
+            <select class="form-control" id="formItem-Type" onchange="onSelectFormItemType(this.options[this.selectedIndex].value)">
+                <option value="string">Text</option>
+                <option value="pictures">Picture</option>
+                <option value="sketch">Sketch</option>
+                <option value="map">Map</option>
+                <option value="dynamicstring">Multiple Text</option>
+                <option value="double">Decimal Number</option>
+                <option value="integer">Integer Number</option>
+                <option value="date">Date</option>
+                <option value="time">Time</option>
+                <option value="label">Form Label</option>
+                <option value="labelwithline">Underlined Label</option>
+                <option value="boolean">Checkbox</option>
+                <option value="stringcombo">Combo</option>
+                <option value="multistringcombo">Multiple Choice Combo</option>
+                <option value="connectedstringcombo">Two Connected Combos</option>
+                <option value="onetomanystringcombo">Sub Combos</option>
+                <option value="autocompletestringcombo">Combo w Autocomplete</option>
+                <option value="autocompleteconnectedstringcombo">Connected Combos w Autocomplete</option>
+                <option value="hidden">Hidden</option>
+                <option value="primary_key">Primary Key</option>                
+            </select>
+        </div>
+        <div class="col-4">
+            <input type="text" class="form-control" id="formItem-Value">
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="formItem-islabel">
+                <label class="form-check-label" for="islabel">Label On Map</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="formItem-mandatory">
+                <label class="form-check-label" for="mandatory">Mandatory</label>
+            </div>          
+        </div>
+      </div>
+      <div class="form-row" id="uniqueFormItems_labels_1">
+          <!-- content created in JavaScript -->
+      </div>
+      <div class="form-row" id="uniqueFormItems_inputs_1">
+          <!-- content created in JavaScript -->          
+      </div>
+      
   </fieldset>
 </div>
 
