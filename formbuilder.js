@@ -22,7 +22,7 @@
 *
 */
 
-gsServerUrl = "/tags/?format=json";
+gsServerUrl = "files.json"; //"/tags/?format=json";
 gsFileName = null;
 goFiles = null;
 goSections = null;
@@ -132,6 +132,26 @@ function clearFormItem(){
 }
 
 function saveToServer(){    // To Do
+    var sSections = JSON.stringify(goSections);
+    var blSections = new Blob([sSections], {type: "application/json"});
+
+	aFormData = new FormData();  	
+	aFormData.append("document[]", blSections, gsFileName);
+	
+	jQuery.ajax({
+		url: 'upload.php',
+		data: aFormData,
+		filename: gsFileName,
+		cache: false,
+		contentType: false,
+		enctype: 'multipart/form-data',
+		processData: false,
+		method: 'POST',
+		type: 'POST', // For jQuery < 1.9
+		success: function(data){
+			alert(data);
+		}
+	});
 }
 function loadListFromServer(){
 // https://geo.trailstewards.com/tags/?format=json
@@ -160,6 +180,7 @@ function populateFileList(files){
 }
 function onSelectFile(url){
         clearSection();
+		gsFileName = url.split("/").pop();
         if (url != ""){
             $.getJSON( url, function( data ) {
                  goSections = data;
