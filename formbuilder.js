@@ -25,7 +25,7 @@
 gsServerUrl = "files.json"; //"/tags/?format=json";
 gsFileName = null;
 goFiles = null;
-goSections = null;
+goSections = [];
 giSectionSelected = null;
 giFormSelected = null;
 giFormItemSelected = null;
@@ -107,7 +107,7 @@ function saveFile(filename, url) {
     document.getElementById('fileSave').href = url;
 }
 function clearAll(){
-    goSections = null;
+    goSections = [];
     $('#sel-File').empty();
     clearSection();
     $('#fs-Section-List').prop('disabled',false );  // so user can create a new file
