@@ -110,6 +110,8 @@ function clearAll(){
     goSections = null;
     $('#sel-File').empty();
     clearSection();
+    $('#fs-Section-List').prop('disabled',false );  // so user can create a new file
+
 }
 function clearSection(){
     $('#fs-Section-Details input').val('');
