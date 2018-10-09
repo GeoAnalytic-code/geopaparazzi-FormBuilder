@@ -22,10 +22,9 @@
 *
 */
 
-gsServerUrl = "files.json"; //"/tags/?format=json";
 gsFileName = null;
 goFiles = null;
-goSections = null;
+goSections = [];
 giSectionSelected = null;
 giFormSelected = null;
 giFormItemSelected = null;
@@ -107,9 +106,10 @@ function saveFile(filename, url) {
     document.getElementById('fileSave').href = url;
 }
 function clearAll(){
-    goSections = null;
+    goSections = [];
     $('#sel-File').empty();
     clearSection();
+    $('#fs-Section-List').prop('disabled',false );  // so user can create a new file
 }
 function clearSection(){
     $('#fs-Section-Details input').val('');
@@ -131,15 +131,18 @@ function clearFormItem(){
     deleteUniqueFormItems();
 }
 
-function saveToServer(){    // To Do
+function saveToServer(){
     var sSections = JSON.stringify(goSections);
     var blSections = new Blob([sSections], {type: "application/json"});
+    var fileOfBlob = new File([blSections], gsFileName);
 
 	aFormData = new FormData();  	
-	aFormData.append("document[]", blSections, gsFileName);
-	
+	aFormData.append("url", fileOfBlob);
+	aFormData.append("path", gsFileName);
+    aFormData.append("csrfmiddlewaretoken", csrf_token);  // set in html
+
 	jQuery.ajax({
-		url: 'upload.php',
+		url: gsServerUrlSaveTagFile,
 		data: aFormData,
 		filename: gsFileName,
 		cache: false,
@@ -147,15 +150,15 @@ function saveToServer(){    // To Do
 		enctype: 'multipart/form-data',
 		processData: false,
 		method: 'POST',
-		type: 'POST', // For jQuery < 1.9
-		success: function(data){
-			alert(data);
+		type:   'POST', // For jQuery < 1.9
+		success: function(response){
+			alert(response);		// todo: parse returned json
 		}
 	});
 }
 function loadListFromServer(){
 // https://geo.trailstewards.com/tags/?format=json
-    $.getJSON( gsServerUrl, function( data ) {
+    $.getJSON( gsServerUrlFileList, function( data ) {
         goFiles = data;
         $('#sel-File').empty();
         populateFileList(goFiles);
@@ -164,7 +167,7 @@ function loadListFromServer(){
 
 }
 function populateFileList(files){
-    var length = files.length;
+    var length = files.count;  // count is a json member
     $('#sel-File').append(
         $('<option/>', {
             value: "",
@@ -173,8 +176,8 @@ function populateFileList(files){
     for (var i = 0; i < length; i++) {
         $('#sel-File').append(
             $('<option/>', {
-                value: files[i].url,
-                text : files[i].path
+                value: files.results[i].url,
+                text : files.results[i].path
         }));
     }
 }
@@ -259,8 +262,7 @@ function onClickSectionDown(){
 function onClickSectionSave(){
     goSections[giSectionSelected].sectionname = $('#section-Name').val();
     goSections[giSectionSelected].sectiondescription = $('#section-Description').val();
-    populateSectionList();
-    $('#sel-Section').val(goSections.length-1);
+	$('#sel-Section option:selected').text(goSections[giSectionSelected].sectionname);
 }
 
 /* ------------------------------------------------------
@@ -330,8 +332,7 @@ function onClickFormDown(){
 }   
 function onClickFormSave(){
     goSections[giSectionSelected].forms[giFormSelected].formname = $('#form-Name').val();
-    populateFormList(giSectionSelected);
-    $('#sel-Form').val(goSections[giSectionSelected].forms.length-1);
+	$('#sel-Form option:selected').text(goSections[giSectionSelected].forms[giFormSelected].formname);
 }
 
 /* ------------------------------------------------------
@@ -395,8 +396,10 @@ function populateUniqueFormItemDetails(selected){
         
     } else {
         $('#formItem-Key').val(oFormItem.key);
-        
-        if(oFormItem.type.endsWith('combo')){   // under construction: stringcombo, multistringcombo
+		
+        // under construction: stringcombo, multistringcombo, autocompletestringcombo
+		// ToDo:  connectedstringcombo, onetomanystringcombo, autocompleteconnectedstringcombo
+        if(oFormItem.type.endsWith('combo')){   
             $("<div class='col-4'><label for='Name'>Choices (you can cut-and-paste!):</label></div>").appendTo($('#uniqueFormItems_labels_1'));
             $("<div class='col-4'><textarea rows='6' class='form-control' id='formItem-Items'></textarea></div>").appendTo($('#uniqueFormItems_inputs_1'));
             var items = $('#formItem-Items');
@@ -406,6 +409,9 @@ function populateUniqueFormItemDetails(selected){
                     items.val( items.val() + "\n");
                 }
             }
+			if(oFormItem.type.substring(0,9)==="connected"){
+				 $("<div class='switch'><label>Off<input type='checkbox'> <span class='lever'></span> On</label></div>").appendTo($('#uniqueFormItems_labels_1'));
+			}
         }
     }
 }
@@ -454,12 +460,15 @@ function onClickFormItemDown(){
         $('#sel-FormItem').val(giFormItemSelected);
     }   
 }   
-function onClickFormItemSave(){     // To Test
-    var oFormItem = goSections[giSectionSelected].forms[giFormSelected].formitems[selected];
+function onClickFormItemSave(){
+    var oFormItem = goSections[giSectionSelected].forms[giFormSelected].formitems[giFormItemSelected];
+
     // ------ common items: ------
     oFormItem.type = $('#formItem-Type').val();
     if ( $('#formItem-Key').length && ($('#formItem-Key').val() != "") ){
         oFormItem.key = $('#formItem-Key').val();
+		var formItemSelected = $('#sel-FormItem option:selected');
+		formItemSelected.text(oFormItem.key);
     }
     if ( $('#formItem-Label').length && ($('#formItem-Label').val() != "") ){
         oFormItem.label = $('#formItem-Label').val();
@@ -480,11 +489,11 @@ function onClickFormItemSave(){     // To Test
     
     if ( $('#formItem-Items').length ){
         oFormItem.values.items = [];
-        var lines = $('#formItem-Items').val.split('\n');
-        var i = 0;
+        var lines = $('#formItem-Items').val().split('\n');
+//        var i = 0;
         $.each(lines, function(){
-            oFormItem.values.items[i].item = this;
-            i++;
+            oFormItem.values.items.push(this);
+//            i++;
         });
     }
 }
