@@ -75,11 +75,11 @@
 </nav>
   
 <div class="container-fluid">
-  <hr><!-- ----------------------------------------------------------------------------------- -->
+  <hr><!--  ----------------------------------------------------------------------------------- -->
   <fieldset disabled id="fs-File-List">
       <div class="form-row">
         <div class="col-2"><b>Tags File:</b></div>
-        <div class="col-7">
+        <div class="col-10">
             <select class="form-control"  id="sel-File" onchange="onSelectFile(this.options[this.selectedIndex].value)"></select>
         </div>
       </div>
@@ -87,13 +87,13 @@
   <hr><!-- ----------------------------------------------------------------------------------- -->
   <fieldset disabled id="fs-Section-List">
       <div class="form-row">
-        <label for="Name"><b>Sections:</b></label>
+        <label for="Name"><b>Sections (Form groups):</b></label>
       </div>
       <div class="form-row">
-        <div class="col-8">
+        <div class="col-10">
             <select class="form-control"  size="6" id="sel-Section" onchange="onSelectSection(this.options[this.selectedIndex].value)"></select>
         </div>
-        <div class="col">
+        <div class="col-2">
             <div class="btn-group-vertical" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-primary" onclick="onClickSectionNew()"    id="btn-SectionNew"   >New</button>
                 <button type="button" class="btn btn-primary" onclick="onClickSectionDelete()" id="btn-SectionDelete">Delete</button>
@@ -105,13 +105,13 @@
   </fieldset>
   <fieldset disabled id="fs-Section-Details">
       <div class="form-row">
-        <div class="col-4"><label for="Name">Key/Label:</label></div>
-        <div class="col"><label for="Name">Description:</label></div>
+        <div class="col-5"><label for="Name">Key/Label (Form Name):</label></div>
+        <div class="col-5"><label for="Name">Description:</label></div>
       </div>
       <div class="form-row">
-        <div class="col"><input type="text" class="form-control" id="section-Name"></div>
-        <div class="col"><input type="text" class="form-control" id="section-Description"></div>
-        <div class="col"><button type="button" class="btn btn-primary" onclick="onClickSectionSave()" id="btn-SectionSave">Save</button></div>
+        <div class="col-5"><input type="text" class="form-control" id="section-Name"></div>
+        <div class="col-5"><input type="text" class="form-control" id="section-Description"></div>
+        <div class="col-2"><button type="button" class="btn btn-primary" onclick="onClickSectionSave()" id="btn-SectionSave">Save</button></div>
       </div>
   </fieldset>
   <hr><!-- ----------------------------------------------------------------------------------- -->
@@ -120,10 +120,10 @@
         <label for="Name"><b>Forms:</b></label>
       </div>
       <div class="form-row">
-        <div class="col-8">
+        <div class="col-10">
             <select class="form-control" size="6" id="sel-Form" onchange="onSelectForm(this.options[this.selectedIndex].value)"></select>
         </div>
-        <div class="col">
+        <div class="col-2">
             <label for="Name"></label>
             <div class="btn-group-vertical">
                 <button type="button" class="btn btn-primary" onclick="onClickFormNew()"    id="btn-FormNew"   >New</button>
@@ -136,12 +136,11 @@
   </fieldset>
   <fieldset disabled id="fs-Form-Details">
       <div class="form-row">
-        <div class="col-4"><label for="Name">Key/Label:</label></div>
+        <div class="col-10"><label for="Name">Key/Label:</label></div>
       </div>
       <div class="form-row">
-        <div class="col"><input type="text" class="form-control" id="form-Name"></div>
-        <div class="col"></div>
-        <div class="col"><button type="button" class="btn btn-primary" onclick="onClickFormSave()" id="btn-formSave">Save</button></div>
+        <div class="col-10"><input type="text" class="form-control" id="form-Name"></div>
+        <div class="col-2"><button type="button" class="btn btn-primary" onclick="onClickFormSave()" id="btn-formSave">Save</button></div>
       </div>
   </fieldset>
   <hr><!-- ----------------------------------------------------------------------------------- -->
@@ -150,10 +149,10 @@
         <label for="Name"><b>Form Items:</b></label>
       </div>
       <div class="form-row">
-        <div class="col-8">
+        <div class="col-10">
             <select class="form-control" size="7" id="sel-FormItem" onchange="onSelectFormItem(this.options[this.selectedIndex].value)"></select>
         </div>
-        <div class="col">
+        <div class="col-2">
             <div class="btn-group-vertical">
                 <button type="button" class="btn btn-primary" onclick="onClickFormItemNew()"    id="btn-FormItemNew"   >New</button>
                 <button type="button" class="btn btn-primary" onclick="onClickFormItemDelete()" id="btn-FormItemDelete">Delete</button>
@@ -165,17 +164,17 @@
   </fieldset>
   <fieldset disabled id="fs-FormItem-Details">
       <div class="form-row">
-        <div class="col-4"><label for="formItem-Key">Key:</label></div>
-        <div class="col">  <label for="formItem-Label">Label:</label></div>
+        <div class="col-5"><label for="formItem-Key">Key:</label></div>
+        <div class="col-5">  <label for="formItem-Label">Label:</label></div>
       </div>
       <div class="form-row">
-        <div class="col-4"><input type="text"    class="form-control" id="formItem-Key"></div>
-        <div class="col">  <input type="text"    class="form-control" id="formItem-Label"></div>
-        <div class="col">  <button type="button" class="btn btn-primary" onclick="onClickFormItemSave()" id="btn-formItemSave">Save</button></div>
+        <div class="col-5"><input type="text"    class="form-control" id="formItem-Key"></div>
+        <div class="col-5">  <input type="text"    class="form-control" id="formItem-Label"></div>
+        <div class="col-2">  <button type="button" class="btn btn-primary" onclick="onClickFormItemSave()" id="btn-formItemSave">Save</button></div>
       </div>    
       <div class="form-row">
         <div class="col-4"><label for="formItem-Type">Type:</label></div>
-        <div class="col">  <label for="formItem-Value">Value:</label></div>
+        <div class="col-2">  <label for="formItem-Value">Value:</label></div>
       </div>
       <div class="form-row">
         <div class="col-4">
@@ -194,10 +193,10 @@
                 <option value="boolean">Checkbox</option>
                 <option value="stringcombo">Combo</option>
                 <option value="multistringcombo">Multiple Choice Combo</option>
-                <option value="connectedstringcombo">Two Connected Combos</option>
-                <option value="onetomanystringcombo">Sub Combos</option>
+                <option value="connectedstringcombo">(Not Implemented Yet) Two Connected Combos</option>
+                <option value="onetomanystringcombo">(Not Implemented Yet) Sub Combos</option>
                 <option value="autocompletestringcombo">Combo w Autocomplete</option>
-                <option value="autocompleteconnectedstringcombo">Connected Combos w Autocomplete</option>
+                <option value="autocompleteconnectedstringcombo">(Not Implemented Yet) Connected Combos w Autocomplete</option>
                 <option value="hidden">Hidden</option>
                 <option value="primary_key">Primary Key</option>                
             </select>
@@ -212,7 +211,7 @@
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="formItem-mandatory">
-                <label class="form-check-label" for="mandatory">Mandatory</label>
+                <label class="form-check-label" for="mandatory">Is Mandatory</label>
             </div>          
         </div>
       </div>

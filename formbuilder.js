@@ -173,6 +173,7 @@ function populateFileList(files){
             value: "",
             text : "Select a tags file:"
     }));
+	
     for (var i = 0; i < length; i++) {
         $('#sel-File').append(
             $('<option/>', {
@@ -208,12 +209,12 @@ function populateSectionList(){
     };
 }
 function onSelectSection(selected){
-    giSectionSelected = selected;
-    populateSectionDetails(selected);
-    $('#fs-Section-Details').prop('disabled',false );
-    clearForm();
-    populateFormList(selected);
-    clearFormItem();
+    giSectionSelected = selected;          // set the global value
+    populateSectionDetails(selected);      // show the details of the selected item
+    $('#fs-Section-Details').prop('disabled',false );  //enable the details for editing
+    clearForm();                           // erase any existing forms listed
+    populateFormList(selected);            // show the forms for this section
+    clearFormItem();                       // clear the form items (until the user selects a form)
 }
 function populateSectionDetails(selected){
     $('#section-Name').val(goSections[selected].sectionname);
