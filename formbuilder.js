@@ -41,17 +41,24 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 } else {
   alert('This browser does not support reading and saving files to your local file system.');
 };
-
 if( window.FormData === undefined ) {
     alert('This browser does not support saving files to a server.');
 }
 
+// ------  HTML Handlers: -------
+document.getElementById('menu-fileNew').addEventListener('click', clearAll);
+// When the open menu item is clicked, send a click to the hidden button to open a local file:
+document.getElementById('menu-fileOpen').addEventListener("click", function(){document.getElementById('fileOpen').click();});
+document.getElementById('fileOpen').addEventListener('change', openFile);
+document.getElementById('menu-fileSave').addEventListener('click', saveJSON);
+document.getElementById('menu-fileLoadServer').addEventListener('click', loadListFromServer);
+document.getElementById('menu-fileSaveServer').addEventListener('click', saveToServer);
+
 /* ------------------------------------------------------
 //  File Handling:
 // ------------------------------------------------------
-//https://www.html5rocks.com/en/tutorials/file/dndfiles/
 */
-// ------ Open: ------
+// ------ Local Open: ------
 function openFile(evt) {
     clearAll();  // clear all the forms on the page
     
@@ -78,9 +85,8 @@ function openFile(evt) {
         reader.readAsText(f);
     }
 }
-document.getElementById('fileOpen').addEventListener('change', openFile, false);
-// ------ Save: ------
-// https://stackoverflow.com/questions/16329293/save-json-string-to-client-pc-using-html5-api#16330385
+
+// ------ Local Save: ------
 function saveJSON() {
     var sSections = JSON.stringify(goSections);
     var blSections = new Blob([sSections], {type: "application/json"});
@@ -88,35 +94,21 @@ function saveJSON() {
     saveFile(gsFileName,uSections);
 }
 function saveFile(filename, url) {
-    document.getElementById('fileSave').download = filename;
-    document.getElementById('fileSave').href = url;
-}
-function clearAll(){
-    goSections = [];
-    $('#sel-File').empty();
-    clearSection();
-    $('#fs-Section-List').prop('disabled',false );  // so user can create a new file
-}
-function clearSection(){
-    $('#fs-Section-Details input').val('');
-    $('#sel-Section').empty();
-    giSectionSelected = null;
-    clearForm();
-}
-function clearForm(){
-    $('#sel-Form').empty();
-    $('#fs-Form-Details input').val('');
-    giFormSelected = null;
-    clearFormItem();
-}
-function clearFormItem(){
-    $('#sel-FormItem').empty();
-    $('#fs-FormItem-Details input').val('');
-    $('#formItem-Type').val('string');
-    giFormItemSelected = null;
-    deleteUniqueFormItems();
+    let fileLink = document.getElementById('fileSave');
+    fileLink.download = filename;
+    fileLink.href = url;
+    fileLink.click();
 }
 
+// ------ Server Load/Save ------
+function loadListFromServer(){
+    $.getJSON( gsServerUrlFileList, function( data ) {
+        goFiles = data;
+        $('#sel-File').empty();
+        populateFileList(goFiles);
+        $('#fs-File-List').prop('disabled',false );
+    });
+}
 function saveToServer(){
     var sSections = JSON.stringify(goSections);
     var blSections = new Blob([sSections], {type: "application/json"});
@@ -141,16 +133,6 @@ function saveToServer(){
 			alert(response);		// todo: parse returned json
 		}
 	});
-}
-function loadListFromServer(){
-// https://geo.trailstewards.com/tags/?format=json
-    $.getJSON( gsServerUrlFileList, function( data ) {
-        goFiles = data;
-        $('#sel-File').empty();
-        populateFileList(goFiles);
-        $('#fs-File-List').prop('disabled',false );
-    });
-
 }
 function populateFileList(files){
     var length = files.count;  // count is a json member
@@ -179,6 +161,34 @@ function onSelectFile(url){
             });
         }
 }
+
+// ------ Clear Page Widgets ------
+function clearAll(){
+    goSections = [];
+    $('#sel-File').empty();
+    clearSection();
+    $('#fs-Section-List').prop('disabled',false );  // so user can create a new file
+}
+function clearSection(){
+    $('#fs-Section-Details input').val('');
+    $('#sel-Section').empty();
+    giSectionSelected = null;
+    clearForm();
+}
+function clearForm(){
+    $('#sel-Form').empty();
+    $('#fs-Form-Details input').val('');
+    giFormSelected = null;
+    clearFormItem();
+}
+function clearFormItem(){
+    $('#sel-FormItem').empty();
+    $('#fs-FormItem-Details input').val('');
+    $('#formItem-Type').val('string');
+    giFormItemSelected = null;
+    deleteUniqueFormItems();
+}
+
 /* ------------------------------------------------------
 //  Section Handling:
 // ------------------------------------------------------
@@ -499,8 +509,3 @@ Array.prototype.move = function(from, to) {
 String.prototype.endsWith = function(suffix) {
     return this.indexOf(suffix, this.length - suffix.length) !== -1;
 };
-/*
-$('#btn-SectionNew').on('click', function (e) {
-     alert("New!");
-})
-*/

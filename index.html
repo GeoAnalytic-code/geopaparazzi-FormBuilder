@@ -59,13 +59,13 @@
                 File
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" onclick="clearAll();" href="#">New</a>
-                <a class="dropdown-item" onclick="document.getElementById('fileOpen').click();" href="#">Open Local File</a>
+                <a id="menu-fileNew"        class="dropdown-item" href="#">New</a>
+                <a id="menu-fileOpen"       class="dropdown-item" href="#">Open Local File</a>
                     <input id="fileOpen" type="file" style="display:none;"/>
-                <a class="dropdown-item" onclick="saveJSON();document.getElementById('fileSave').click();" href="#">Save To Local Filesystem</a>
-                    <a id="fileSave" href="#" style="display:none;"></a>
-                <a class="dropdown-item" onclick="loadListFromServer();" href="#">Load From Server</a>
-                <a class="dropdown-item" onclick="saveToServer();" href="#">Save To Server</a>
+                <a id="menu-fileSave"       class="dropdown-item" href="#">Save Local File</a>
+                    <a id="fileSave" style="display:none; "href="#"></a>
+                <a id="menu-fileLoadServer" class="dropdown-item" href="#">Load From Server</a>
+                <a id="menu-fileSaveServer" class="dropdown-item" href="#">Save To Server</a>
 
             </div>
         </li>
