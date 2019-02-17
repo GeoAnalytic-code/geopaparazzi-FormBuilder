@@ -34,32 +34,18 @@ window.onload = clearAll();
 /* ------------------------------------------------------
 //  Check Browser Compatibility
 // ------------------------------------------------------
-  https://www.html5rocks.com/en/tutorials/file/dndfiles/
   Check for the various File API support.
 */
-switch(window.location.protocol) {
-   case 'http:':
-   case 'https:':
-//   alert("Server!");
-     //remote file over http or https
-     break;
-   case 'file:':
-     //local file
-//   alert("File!");
-     break;
-   default: 
-     //some other protocol
-}
 if (window.File && window.FileReader && window.FileList && window.Blob) {
   // Great success! All the File APIs are supported.
 } else {
-//  alert('The File APIs are not fully supported in this browser.');
   alert('This browser does not support reading and saving files to your local file system.');
 };
 
 if( window.FormData === undefined ) {
     alert('This browser does not support saving files to a server.');
 }
+
 /* ------------------------------------------------------
 //  File Handling:
 // ------------------------------------------------------
