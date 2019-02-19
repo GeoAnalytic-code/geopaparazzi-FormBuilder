@@ -22,21 +22,23 @@
 *
 */
 
-gsFileName = null;
-goFiles = null;
-goSections = [];
-giSectionSelected = null;
-giFormSelected = null;
-giFormItemSelected = null;
+"use strict";
+
+let gsFileName = null;
+let goFiles = null;
+let goSections = [];
+let giSectionSelected = null;
+let giFormSelected = null;
+let giFormItemSelected = null;
 
 window.onload = clearAll();
 
+/* ------------------------------------------------------ */
+/*  Check Browser Compatibility
 /* ------------------------------------------------------
-//  Check Browser Compatibility
-// ------------------------------------------------------
   Check for the various File API support.
 */
-if (window.File && window.FileReader && window.FileList && window.Blob) {
+if (window.File && window.FileReader && window.FileList && window.Blob && window.URL) {
   // Great success! All the File APIs are supported.
 } else {
   alert('This browser does not support reading and saving files to your local file system.');
@@ -45,26 +47,32 @@ if( window.FormData === undefined ) {
     alert('This browser does not support saving files to a server.');
 }
 
-// ------  HTML Handlers: -------
-document.getElementById('menu-fileNew').addEventListener('click', clearAll);
-// When the open menu item is clicked, send a click to the hidden button to open a local file:
-document.getElementById('menu-fileOpen').addEventListener("click", function(){document.getElementById('fileOpen').click();});
-document.getElementById('fileOpen').addEventListener('change', openFile);
-document.getElementById('menu-fileSave').addEventListener('click', saveJSON);
-document.getElementById('menu-fileLoadServer').addEventListener('click', loadListFromServer);
-document.getElementById('menu-fileSaveServer').addEventListener('click', saveToServer);
+// ------  HTML Menu Handlers: -------
+$('#menu-fileNew').click(clearAll);
 
-/* ------------------------------------------------------
-//  File Handling:
+// When the open menu item is clicked, send a click to the hidden button to open a local file:
+$('#menu-fileOpen').click( function(e){
+        $('#fileOpen').click();
+        e.preventDefault(); // prevent navigation to "#"
+});
+$('#fileOpen').change(openFile);
+
+$('#menu-fileSave').click(saveJSON);
+$('#menu-fileLoadServer').click(loadListFromServer);
+$('#menu-fileSaveServer').click(saveToServer);
+
+/* ------------------------------------------------------ */
+/*  File Handling:
 // ------------------------------------------------------
 */
 // ------ Local Open: ------
+//let openFile = function(evt) {
 function openFile(evt) {
-    clearAll();  // clear all the forms on the page
+    clearAll();  // clear all the forms on the page with any previous content
     
-    var files = evt.target.files; // FileList object
-    // Loop through the FileList (we only use one)
-    for (var i = 0, f; f = files[i]; i++) {
+    let files = evt.target.files; // FileList object
+    // Loop through the FileList (ToDo: allow multi files selected)
+    for (let i = 0, f; f = files[i]; i++) {
         $('#sel-File').append(
             $('<option/>', {
                 value: f.name,
@@ -72,12 +80,11 @@ function openFile(evt) {
         }));
         gsFileName = f.name;
         
-        var reader = new FileReader();
+        let reader = new FileReader();
         // Closure to capture the file information.
         reader.onload = (function(theFile) {
             return function(e) {
              goSections = JSON.parse(e.target.result);
-//           console.log(goSections);
              populateSectionList(goSections);
             };
         })(f);
@@ -88,9 +95,9 @@ function openFile(evt) {
 
 // ------ Local Save: ------
 function saveJSON() {
-    var sSections = JSON.stringify(goSections);
-    var blSections = new Blob([sSections], {type: "application/json"});
-    var uSections = URL.createObjectURL(blSections);
+    let sSections = JSON.stringify(goSections);
+    let blSections = new Blob([sSections], {type: "application/json"});
+    let uSections = URL.createObjectURL(blSections);
     saveFile(gsFileName,uSections);
 }
 function saveFile(filename, url) {
@@ -101,6 +108,7 @@ function saveFile(filename, url) {
 }
 
 // ------ Server Load/Save ------
+$('#sel-File').change(onSelectFile);
 function loadListFromServer(){
     $.getJSON( gsServerUrlFileList, function( data ) {
         goFiles = data;
@@ -110,9 +118,9 @@ function loadListFromServer(){
     });
 }
 function saveToServer(){
-    var sSections = JSON.stringify(goSections);
-    var blSections = new Blob([sSections], {type: "application/json"});
-    var fileOfBlob = new File([blSections], gsFileName);
+    let sSections = JSON.stringify(goSections);
+    let blSections = new Blob([sSections], {type: "application/json"});
+    let fileOfBlob = new File([blSections], gsFileName);
 
 	aFormData = new FormData();  	
 	aFormData.append("url", fileOfBlob);
@@ -130,36 +138,35 @@ function saveToServer(){
 		method: 'POST',
 		type:   'POST', // For jQuery < 1.9
 		success: function(response){
-			alert(response);		// todo: parse returned json
+			console.log(response);		// ToDo: parse [JSON] response
 		}
 	});
 }
 function populateFileList(files){
-    var length = files.count;  // count is a json member
+    let length = files.count;  // count is a JSON member
     $('#sel-File').append(
         $('<option/>', {
             value: "",
             text : "Select a tags file:"
     }));
-	
-    for (var i = 0; i < length; i++) {
+    for (let i = 0; i < length; i++) {
         $('#sel-File').append(
             $('<option/>', {
                 value: files.results[i].url,
                 text : files.results[i].path
         }));
-    }
+    };
 }
-function onSelectFile(url){
-        clearSection();
-		gsFileName = url.split("/").pop();
-        if (url != ""){
-            $.getJSON( url, function( data ) {
-                 goSections = data;
-    //           console.log(goSections);
-                 populateSectionList(goSections);
-            });
-        }
+function onSelectFile(){
+    let url = $('#sel-File').val();
+    clearSection();
+    gsFileName = url.split("/").pop();
+    if (url != ""){
+        $.getJSON( url, function( data ) {
+             goSections = data;
+             populateSectionList(goSections);
+        });
+    }
 }
 
 // ------ Clear Page Widgets ------
@@ -193,10 +200,17 @@ function clearFormItem(){
 //  Section Handling:
 // ------------------------------------------------------
 */
+$('#sel-Section').change(onSelectSection);
+$('#btn-SectionNew'   ).click(onClickSectionNew);
+$('#btn-SectionDelete').click(onClickSectionDelete);
+$('#btn-SectionUp'    ).click(onClickSectionUp);
+$('#btn-SectionDown'  ).click(onClickSectionDown);
+$('#btn-SectionSave'  ).click(onClickSectionSave);
+
 function populateSectionList(){
     $('#fs-Section-List').prop('disabled',false );
     $('#sel-Section').empty();
-    for (i = 0; i < goSections.length; i++) {
+    for (let i = 0; i < goSections.length; i++) {
         $('#sel-Section').append(
             $('<option/>', {
                 value: i,
@@ -204,7 +218,8 @@ function populateSectionList(){
         }));
     };
 }
-function onSelectSection(selected){
+function onSelectSection(){
+    let selected = $('#sel-Section').val();
     giSectionSelected = selected;          // set the global value
     populateSectionDetails(selected);      // show the details of the selected item
     $('#fs-Section-Details').prop('disabled',false );  //enable the details for editing
@@ -217,8 +232,8 @@ function populateSectionDetails(selected){
     $('#section-Description').val(goSections[selected].sectiondescription);
 }
 function onClickSectionNew(){
-    var formsArray = [];
-    var section = {sectionname:"new", sectiondescription: "new", forms:formsArray };
+    let formsArray = [];
+    let section = {sectionname:"new", sectiondescription: "new", forms:formsArray };
     goSections.push(section);
     populateSectionList();
     $('#sel-Section').val(goSections.length-1);
@@ -233,7 +248,7 @@ function onClickSectionDelete(){
 function onClickSectionUp(){
     if (giSectionSelected > 0){
         // --- move in array: ---
-        var newSelected = Number(giSectionSelected)-1;
+        let newSelected = Number(giSectionSelected)-1;
         goSections.move(giSectionSelected,newSelected);
         // --- refresh select box: ---
         populateSectionList();
@@ -246,7 +261,7 @@ function onClickSectionUp(){
 function onClickSectionDown(){
     if (giSectionSelected < goSections.length - 1){
         // --- move in array: ---
-        var newSelected = Number(giSectionSelected)+1;
+        let newSelected = Number(giSectionSelected)+1;
         goSections.move(giSectionSelected,newSelected);
         // --- refresh select box: ---
         populateSectionList();
@@ -266,10 +281,17 @@ function onClickSectionSave(){
 //  Form Handling:
 // ------------------------------------------------------
 */
+$('#sel-Form').change(onSelectForm);
+$('#btn-FormNew'   ).click(onClickFormNew);
+$('#btn-FormDelete').click(onClickFormDelete);
+$('#btn-FormUp'    ).click(onClickFormUp);
+$('#btn-FormDown'  ).click(onClickFormDown);
+$('#btn-FormSave'  ).click(onClickFormSave);
+
 function populateFormList(selectedSection){  // To Do: remove parameter?
     $('#fs-Form-List').prop('disabled',false );
     $('#sel-Form').empty();
-    for (i = 0; i < goSections[selectedSection].forms.length; i++) {
+    for (let i = 0; i < goSections[selectedSection].forms.length; i++) {
         $('#sel-Form').append(
             $('<option/>', {
                 value: i,
@@ -277,7 +299,8 @@ function populateFormList(selectedSection){  // To Do: remove parameter?
         }));    
     };
 }
-function onSelectForm(selected){
+function onSelectForm(){
+    let selected = $('#sel-Form').val();
     giFormSelected = selected;
     populateFormDetails(selected);
     $('#fs-Form-Details').prop('disabled',false );
@@ -288,8 +311,8 @@ function populateFormDetails(selected){
     $('#form-Name').val(goSections[giSectionSelected].forms[selected].formname);
 }
 function onClickFormNew(){
-    var formItemsArray = [];
-    var form = {formname:"new", formitems:formItemsArray };
+    let formItemsArray = [];
+    let form = {formname:"new", formitems:formItemsArray };
     goSections[giSectionSelected].forms.push(form);
     populateFormList(giSectionSelected);
     $('#sel-Form').val(goSections[giSectionSelected].forms.length-1);
@@ -304,7 +327,7 @@ function onClickFormDelete(){
 function onClickFormUp(){
     if (giFormSelected > 0){
         // --- move in array: ---
-        var newSelected = Number(giFormSelected)-1;
+        let newSelected = Number(giFormSelected)-1;
         goSections[giSectionSelected].forms.move(giFormSelected,newSelected);
         // --- refresh select box: ---
         populateFormList(giSectionSelected);
@@ -317,7 +340,7 @@ function onClickFormUp(){
 function onClickFormDown(){
     if (giFormSelected < goSections[giSectionSelected].forms.length - 1){
         // --- move in array: ---
-        var newSelected = Number(giFormSelected)+1;
+        let newSelected = Number(giFormSelected)+1;
         goSections[giSectionSelected].forms.move(giFormSelected,newSelected);
         // --- refresh select box: ---
         populateFormList(giSectionSelected);
@@ -336,11 +359,20 @@ function onClickFormSave(){
 //  FormItem Handling:
 // ------------------------------------------------------
 */
+$('#sel-FormItem').change(onSelectFormItem);
+$('#btn-FormItemNew'   ).click(onClickFormItemNew);
+$('#btn-FormItemDelete').click(onClickFormItemDelete);
+$('#btn-FormItemUp'    ).click(onClickFormItemUp);
+$('#btn-FormItemDown'  ).click(onClickFormItemDown);
+$('#btn-FormItemSave'  ).click(onClickFormItemSave);
+$('#formItem-Type').change(onSelectFormItemType);
+
 function populateFormItemList(selectedForm){
     $('#fs-FormItem-List').prop('disabled',false );
     $('#sel-FormItem').empty();
-    for (i = 0; i < goSections[giSectionSelected].forms[giFormSelected].formitems.length; i++) {
-        sType = goSections[giSectionSelected].forms[giFormSelected].formitems[i].type.substring(0,5);
+    for (let i = 0; i < goSections[giSectionSelected].forms[giFormSelected].formitems.length; i++) {
+        let sType = goSections[giSectionSelected].forms[giFormSelected].formitems[i].type.substring(0,5);
+        let sText = "";
         if ( sType === "label"){
             sText = goSections[giSectionSelected].forms[giFormSelected].formitems[i].value;
         } else {
@@ -354,13 +386,14 @@ function populateFormItemList(selectedForm){
     };
     deleteUniqueFormItems();
 }
-function onSelectFormItem(selected){
+function onSelectFormItem(){
+    let selected = $('#sel-FormItem').val();
     giFormItemSelected = selected;
     $('#fs-FormItem-Details').prop('disabled',false );
     populateFormItemDetails(selected);
 }
 function populateFormItemDetails(selected){
-    var oFormItem = goSections[giSectionSelected].forms[giFormSelected].formitems[selected];
+    let oFormItem = goSections[giSectionSelected].forms[giFormSelected].formitems[selected];
 
     // ------ common elements: ------
     $('#formItem-Label').val(oFormItem.label);
@@ -373,11 +406,12 @@ function populateFormItemDetails(selected){
     populateUniqueFormItemDetails(oFormItem.type)
 }
 
-function onSelectFormItemType(selected){
+function onSelectFormItemType(){
+    let selected = $('#formItem-Type').val();
     populateUniqueFormItemDetails(selected)
 }
 function populateUniqueFormItemDetails(selected){
-    var oFormItem = goSections[giSectionSelected].forms[giFormSelected].formitems[giFormItemSelected];
+    let oFormItem = goSections[giSectionSelected].forms[giFormSelected].formitems[giFormItemSelected];
     // ------ type-specific elements: ------
     deleteUniqueFormItems();
     if(oFormItem.type.substring(0,5)==="label"){
@@ -399,8 +433,8 @@ function populateUniqueFormItemDetails(selected){
         if(oFormItem.type.endsWith('combo')){   
             $("<div class='col-4'><label for='Name'>Choices (you can cut-and-paste!):</label></div>").appendTo($('#uniqueFormItems_labels_1'));
             $("<div class='col-4'><textarea rows='6' class='form-control' id='formItem-Items'></textarea></div>").appendTo($('#uniqueFormItems_inputs_1'));
-            var items = $('#formItem-Items');
-            for (i = 0; i < oFormItem.values.items.length; i++) {
+            let items = $('#formItem-Items');
+            for (let i = 0; i < oFormItem.values.items.length; i++) {
                 items.val( items.val() + oFormItem.values.items[i].item);
                 if (i!=oFormItem.values.items.length-1) {
                     items.val( items.val() + "\n");
@@ -418,7 +452,7 @@ function deleteUniqueFormItems(){
 }
 
 function onClickFormItemNew(){
-    var formItem = {key:"new", type:"string", value:"new"};
+    let formItem = {key:"new", type:"string", value:"new"};
     goSections[giSectionSelected].forms[giFormSelected].formitems.push(formItem);
     populateFormItemList();
     $('#sel-FormItem').val(goSections[giSectionSelected].forms[giFormSelected].formitems.length-1);
@@ -434,7 +468,7 @@ function onClickFormItemDelete(){
 function onClickFormItemUp(){
     if (giFormItemSelected > 0){
         // --- move in array: ---
-        var newSelected = Number(giFormItemSelected)-1;
+        let newSelected = Number(giFormItemSelected)-1;
         goSections[giSectionSelected].forms[giFormSelected].formitems.move(giFormItemSelected,newSelected);
         // --- refresh select box: ---
         populateFormItemList();
@@ -447,7 +481,7 @@ function onClickFormItemUp(){
 function onClickFormItemDown(){
     if (giFormItemSelected < goSections[giSectionSelected].forms[giFormSelected].formitems.length - 1){
         // --- move in array: ---
-        var newSelected = Number(giFormItemSelected)+1;
+        let newSelected = Number(giFormItemSelected)+1;
         goSections[giSectionSelected].forms[giFormSelected].formitems.move(giFormItemSelected,newSelected);
         // --- refresh select box: ---
         populateFormItemList();
@@ -458,13 +492,13 @@ function onClickFormItemDown(){
     }   
 }   
 function onClickFormItemSave(){
-    var oFormItem = goSections[giSectionSelected].forms[giFormSelected].formitems[giFormItemSelected];
+    let oFormItem = goSections[giSectionSelected].forms[giFormSelected].formitems[giFormItemSelected];
 
     // ------ common items: ------
     oFormItem.type = $('#formItem-Type').val();
     if ( $('#formItem-Key').length && ($('#formItem-Key').val() != "") ){
         oFormItem.key = $('#formItem-Key').val();
-		var formItemSelected = $('#sel-FormItem option:selected');
+		let formItemSelected = $('#sel-FormItem option:selected');
 		formItemSelected.text(oFormItem.key);
     }
     if ( $('#formItem-Label').length && ($('#formItem-Label').val() != "") ){
@@ -486,8 +520,8 @@ function onClickFormItemSave(){
     
     if ( $('#formItem-Items').length ){
         oFormItem.values.items = [];
-        var lines = $('#formItem-Items').val().split('\n');
-//        var i = 0;
+        let lines = $('#formItem-Items').val().split('\n');
+//        let i = 0;
         $.each(lines, function(){
             oFormItem.values.items.push(this);
 //            i++;
@@ -500,7 +534,7 @@ function onClickFormItemSave(){
 // ------------------------------------------------------
 */
 function SelectElement(id, valueToSelect){    
-    var element = document.getElementById(id);
+    let element = document.getElementById(id);
     element.value = valueToSelect;
 }
 Array.prototype.move = function(from, to) {
