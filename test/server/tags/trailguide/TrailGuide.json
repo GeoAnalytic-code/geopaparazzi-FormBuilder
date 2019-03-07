@@ -1,0 +1,264 @@
+[
+    {
+        "sectionname": "Trail Guide",
+        "sectiondescription": "Trail Guide",
+        "forms": [
+            {
+                "formname": "Water Crossing",
+                "formitems": [
+                    {
+                        "key": "Crossing Type",
+                        "values": {
+                            "items": [
+                                {"item": "Bridge"},
+                                {"item": "Cable crossing"},
+                                {"item": "Culvert"},
+                                {"item": "Ford"},
+                                {"item": "Other"}
+                            ]
+                        },
+                        "value": "",
+                        "type": "multistringcombo"
+                    },
+                    {
+                        "key": "Crossing Width (m)",
+                        "value": "",
+                        "type": "double"
+                    },
+                    {
+                        "key": "Stream Type",
+                        "values": {
+                            "items": [
+                                {"item": ""},
+                                {"item": "Ephemeral"},
+                                {"item": "Intermittent"},
+                                {"item": "Semi-permanent"},
+                                {"item": "Permanent"}
+                            ]
+                        },
+                        "value": "",
+                        "type": "stringcombo"
+                    },
+                    {
+                        "key": "Comment",
+                        "value": "",
+                        "type": "string"
+                    },
+                    {
+                        "key": "",
+                        "value": "",
+                        "type": "pictures"
+                    }					
+				]
+            },
+            {
+                "formname": "Trail Observations",
+                "formitems": [
+                    {
+                        "key": "Tread Width (m)",
+                        "value": "",
+                        "type": "double"
+                    },
+                    {
+                        "key": "Trail Condition",
+                        "values": {
+                            "items": [
+                                {"item": ""},
+                                {"item": "Good"},
+                                {"item": "Fair"},
+                                {"item": "Poor"}
+                            ]
+                        },
+                        "value": "",
+                        "type": "stringcombo"
+                    },
+                    {
+                        "key": "Trail Use",
+                        "values": {
+                            "items": [
+                                {"item": "On-highway vehicle"},
+                                {"item": "Off road truck"},
+                                {"item": "OHV"},
+                                {"item": "ORM"},
+                                {"item": "Snowmobile"},
+                                {"item": "Horse"},
+                                {"item": "Horse and wagon"},
+                                {"item": "MTB"},
+                                {"item": "Street bicycle"},
+                                {"item": "Hiking"},
+                                {"item": "X-C Skiing"}
+                            ]
+                        },
+                        "value": "",
+                        "type": "multistringcombo"
+                    },
+                    {
+                        "key": "Surface Type",
+                        "values": {
+                            "items": [
+                                {"item": "Grass"},
+                                {"item": "Till"},
+                                {"item": "Cobble till"},
+                                {"item": "Cobble"},
+                                {"item": "Gravel"},
+                                {"item": "Rock"},
+                                {"item": "Scree"},
+                                {"item": "Sand"},
+                                {"item": "Organic"},
+                                {"item": "Wood chip"},
+                                {"item": "Boardwalk"},
+                                {"item": "Brick-paving stone"},
+                                {"item": "Asphalt- paved"},
+                                {"item": "Snow and ice"},
+                                {"item": "Waterway"}
+                            ]
+                        },
+                        "value": "",
+                        "type": "multistringcombo"
+                    },
+                    {
+                        "key": "Comment",
+                        "value": "",
+                        "type": "string"
+                    },
+                    {
+                        "key": "Image",
+                        "value": "",
+                        "type": "pictures"
+                    }					
+				]
+            },
+            {
+                "formname": "Maintenance Issues",
+                "formitems": [
+                    {
+                        "key": "Issues",
+                        "values": {
+                            "items": [
+                                {"item": "Wind fall tree"},
+                                {"item": "Erosion"},
+                                {"item": "Rutting"},
+                                {"item": "Standing water"},
+                                {"item": "Growing in"},
+                                {"item": "Grading"},
+                                {"item": "Signage missing"},
+                                {"item": "Snow clearing"},
+                                {"item": "Track setting"},
+                                {"item": "Other"}
+                            ]
+                        },
+                        "value": "",
+                        "type": "multistringcombo"
+                    },
+                    {
+                        "key": "Comment",
+                        "value": "",
+                        "type": "string"
+                    },
+                    {
+                        "key": "Image",
+                        "value": "",
+                        "type": "pictures"
+                    }					
+				]
+            },			
+            {
+                "formname": "Features",
+                "formitems": [
+                    {
+                        "key": "Issues",
+                        "values": {
+                            "items": [
+                                {"item": "Trail head"},
+                                {"item": "Steep hill"},
+                                {"item": "Frolic area"},
+                                {"item": "Portage"},
+                                {"item": "Trail intersection"},
+                                {"item": "Water fall"},
+                                {"item": "View point"}
+							]
+                        },
+                        "value": "",
+                        "type": "multistringcombo"
+                    },
+                    {
+                        "key": "Comment",
+                        "value": "",
+                        "type": "string"
+                    },
+                    {
+                        "key": "Image",
+                        "value": "",
+                        "type": "pictures"
+                    }					
+				]
+            },			
+            {
+                "formname": "Amenities",
+                "formitems": [
+                    {
+                        "key": "Amenities",
+                        "values": {
+                            "items": [
+                                {"item": "Beach"},
+                                {"item": "Bench"},
+                                {"item": "Bike rack"},
+                                {"item": "Board walk"},
+                                {"item": "Boat launch"},
+                                {"item": "Cabin"},
+                                {"item": "Camp site"},
+                                {"item": "Corrals/hitch post"},
+                                {"item": "Drinking water"},
+                                {"item": "Facilities zone"},
+                                {"item": "Fire pits"},
+                                {"item": "Fire wood"},
+                                {"item": "Food services"},
+                                {"item": "Garbage disposal"},
+                                {"item": "Gas/fuel station"},
+                                {"item": "Gate/barrier"},
+                                {"item": "Guard rail"},
+                                {"item": "Historic site"},
+                                {"item": "Information kiosk"},
+                                {"item": "Interpretive signage"},
+                                {"item": "Lighting"},
+                                {"item": "Marina"},
+                                {"item": "Mooring points"},
+                                {"item": "OHV loading ramp"},
+                                {"item": "Other- describe"},
+                                {"item": "Parking"},
+                                {"item": "Parking (trailer)"},
+                                {"item": "Picnic area"},
+                                {"item": "Picnic shelter"},
+                                {"item": "Picnic tables"},
+                                {"item": "Pit toilet"},
+                                {"item": "Power"},
+                                {"item": "Public telephone"},
+                                {"item": "Public transit"},
+                                {"item": "Sewage disposal"},
+                                {"item": "Staging area"},
+                                {"item": "Stairs"},
+                                {"item": "Swimming"},
+                                {"item": "Trail Information"},
+                                {"item": "Visitor center"},
+                                {"item": "Warming shelter"},
+								{"item": "Washroom"}
+							]
+                        },
+                        "value": "",
+                        "type": "multistringcombo"
+                    },
+                    {
+                        "key": "Comment",
+                        "value": "",
+                        "type": "string"
+                    },
+                    {
+                        "key": "Image",
+                        "value": "",
+                        "type": "pictures"
+                    }					
+				]
+            }
+        ]
+    }
+]

@@ -1,0 +1,2215 @@
+[{
+	"sectionname": "Generality event",
+	"sectiondescription": "General Documentation of Events Documentation",
+	"forms": [{
+		"formname": "Event",
+		"formitems": [{
+			"key": "Event ID",
+			"value": "",
+			"type": "string",
+			"mandatory": "yes"
+		},
+		{
+			"key": "Event Type",
+			"mandatory": "yes",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "Flood"
+				},
+				{
+					"item": "torrential flood"
+				},
+				{
+					"item": "Urban flood"
+				},
+				{
+					"item": "debris flow"
+				},
+				{
+					"item": "Landslide"
+				},
+				{
+					"item": "Collapse"
+				},
+				{
+					"item": "Avalanche"
+				},
+				{
+					"item": "Other event"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		}]
+	},
+	{
+		"formname": "Basic information",
+		"formitems": [{
+			"key": "Date compilation",
+			"value": "",
+			"type": "date",
+			"mandatory": "yes"
+		},
+		{
+			"key": "Now compiling",
+			"value": "",
+			"type": "time",
+			"mandatory": "yes"
+		},
+		{
+			"key": "Compiler name",
+			"value": "",
+			"type": "string",
+			"mandatory": "yes"
+		},
+		{
+			"key": "SBM Zone",
+			"value": "",
+			"type": "string",
+			"mandatory": "yes"
+		},
+		{
+			"key": "Municipality / s",
+			"value": "",
+			"type": "string",
+			"mandatory": "yes"
+		},
+		{
+			"key": "Fraction / location / farm",
+			"value": "",
+			"type": "string",
+			"mandatory": "yes"
+		},
+		{
+			"value": "Water course",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "Code",
+			"value": "",
+			"type": "string",
+			"mandatory": "yes"
+		},
+		{
+			"key": "Official name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Local name",
+			"value": "",
+			"type": "string"
+		}]
+	},
+	{
+		"formname": "Meteorological conditions",
+		"formitems": [{
+			"key": "Quality of data",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Type",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "Temporal"
+				},
+				{
+					"item": "Persistent rains"
+				},
+				{
+					"item": "Hail"
+				},
+				{
+					"item": "Melting snow"
+				},
+				{
+					"item": "Wind"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Data",
+			"value": "",
+			"type": "date"
+		},
+		{
+			"key": "Quantity [mm]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "Limit 0C' [m s.l.m.]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "Duration [h]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "Maximum intensity [mm / h]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "Direction of origin",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Wind speed [km / h]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "Wind direction",
+			"value": "",
+			"type": "string"
+		}]
+	},
+	{
+		"formname": "Event Date",
+		"formitems": [{
+			"key": "Event date",
+			"value": "",
+			"type": "date",
+			"mandatory": "yes"
+		},
+		{
+			"key": "Event time",
+			"value": "",
+			"type": "time",
+			"mandatory": "yes"
+		},
+		{
+			"key": "Duration [h]",
+			"value": "",
+			"type": "double",
+			"mandatory": "yes"
+		}]
+	},
+	{
+		"formname": "Evaluation method",
+		"formitems": [{
+			"key": "Evaluation method",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "Detection in the countryside"
+				},
+				{
+					"item": "Monitoring"
+				},
+				{
+					"item": "Photo interpretation"
+				},
+				{
+					"item": "Distance observation versus opposite"
+				},
+				{
+					"item": "Helicopter photo"
+				},
+				{
+					"item": "Historical data"
+				},
+				{
+					"item": "Other (note)"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Notes methodology",
+			"value": "",
+			"type": "string"
+		}]
+	}]
+},
+{
+	"sectionname": "damage card",
+	"sectiondescription": "Detection of damage",
+	"forms": [{
+		"formname": "Event",
+		"formitems": [{
+			"key": "Event ID",
+			"value": "",
+			"type": "string",
+			"mandatory": "yes"
+		}]
+	},
+	{
+		"formname": "People and animals",
+		"formitems": [{
+			"value": "People",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO People",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "nr dead people",
+			"value": "0",
+			"type": "double",
+			"mandatory": "yes"
+		},
+		{
+			"key": "No. of wounded people",
+			"value": "0",
+			"type": "double",
+			"mandatory": "yes"
+		},
+		{
+			"key": "No. of people evacuated",
+			"value": "0",
+			"type": "double",
+			"mandatory": "yes"
+		},
+		{
+			"value": "Animals",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO Animals",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "nr dead animals",
+			"value": "0",
+			"type": "double",
+			"mandatory": "yes"
+		},
+		{
+			"key": "animal number involved",
+			"value": "0",
+			"type": "double",
+			"mandatory": "yes"
+		}]
+	},
+	{
+		"formname": "Buildings and infrastructures",
+		"formitems": [{
+			"value": "Private buildings (EP)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO EP",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Type EP",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "sparse houses"
+				},
+				{
+					"item": "core"
+				},
+				{
+					"item": "country"
+				},
+				{
+					"item": "city"
+				},
+				{
+					"item": "other"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Grade EP",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "not evaluable"
+				},
+				{
+					"item": "mild"
+				},
+				{
+					"item": "medium"
+				},
+				{
+					"item": "serious"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "EP number",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Cultural Heritage (BC)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO BC",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Type BC",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "Monument"
+				},
+				{
+					"item": "Museum"
+				},
+				{
+					"item": "bio / geotope"
+				},
+				{
+					"item": "lake"
+				},
+				{
+					"item": "architectural good"
+				},
+				{
+					"item": "other"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Grade BC",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "not evaluable"
+				},
+				{
+					"item": "mild"
+				},
+				{
+					"item": "medium"
+				},
+				{
+					"item": "serious"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "BC number",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "public service structures (SSP)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO SSP",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Type SSP",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "public building"
+				},
+				{
+					"item": "sport"
+				},
+				{
+					"item": "park"
+				},
+				{
+					"item": "artificial basin"
+				},
+				{
+					"item": "waste"
+				},
+				{
+					"item": "hospital"
+				},
+				{
+					"item": "school"
+				},
+				{
+					"item": "church"
+				},
+				{
+					"item": "other"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Grade SSP",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "not evaluable"
+				},
+				{
+					"item": "mild"
+				},
+				{
+					"item": "medium"
+				},
+				{
+					"item": "serious"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "SSP number",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Network infrastructure (IR)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO IR",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "IR type",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "aqueduct"
+				},
+				{
+					"item": "pipeline"
+				},
+				{
+					"item": "power line"
+				},
+				{
+					"item": "funnel"
+				},
+				{
+					"item": "cableway installation"
+				},
+				{
+					"item": "telecommunications"
+				},
+				{
+					"item": "other"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "IR Grade",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "not evaluable"
+				},
+				{
+					"item": "mild"
+				},
+				{
+					"item": "medium"
+				},
+				{
+					"item": "serious"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "IR linear meters",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Agricultural land (TR)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO TR",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Type TR",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "arable land"
+				},
+				{
+					"item": "orchard"
+				},
+				{
+					"item": "forest"
+				},
+				{
+					"item": "pasture"
+				},
+				{
+					"item": "ski slope"
+				},
+				{
+					"item": "reforestation"
+				},
+				{
+					"item": "other"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Grade TR",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "not evaluable"
+				},
+				{
+					"item": "mild"
+				},
+				{
+					"item": "medium"
+				},
+				{
+					"item": "serious"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Hectares TR",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Economic activities (AE)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO AE",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Type AE",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "industrial structure"
+				},
+				{
+					"item": "craft structure"
+				},
+				{
+					"item": "tourist facility"
+				},
+				{
+					"item": "business structure"
+				},
+				{
+					"item": "mining plant"
+				},
+				{
+					"item": "chemical plant"
+				},
+				{
+					"item": "other"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "AE Grade",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "not evaluable"
+				},
+				{
+					"item": "mild"
+				},
+				{
+					"item": "medium"
+				},
+				{
+					"item": "serious"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "AE Number",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Vehicles (VE)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO VE",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "VE type",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "automobile"
+				},
+				{
+					"item": "truck"
+				},
+				{
+					"item": "tractor"
+				},
+				{
+					"item": "bus"
+				},
+				{
+					"item": "airplane"
+				},
+				{
+					"item": "helicopter"
+				},
+				{
+					"item": "boat"
+				},
+				{
+					"item": "train"
+				},
+				{
+					"item": "other"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Grade VE",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "not evaluable"
+				},
+				{
+					"item": "mild"
+				},
+				{
+					"item": "medium"
+				},
+				{
+					"item": "serious"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "VE number",
+			"value": "",
+			"type": "double"
+		}]
+	},
+	{
+		"formname": "Viabilita'",
+		"formitems": [{
+			"key": "MAXO Viabilita'",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Traffic type code",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "Highway"
+				},
+				{
+					"item": "Railway"
+				},
+				{
+					"item": "State Road"
+				},
+				{
+					"item": "Provincial Road"
+				},
+				{
+					"item": "Municipal road"
+				},
+				{
+					"item": "Forest Road"
+				},
+				{
+					"item": "other"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Traffic name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Progressive",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "Description of damage",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Traffic interrupted?",
+			"value": "",
+			"type": "boolean"
+		},
+		{
+			"key": "Break time [h]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "Viability grade",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "not evaluable"
+				},
+				{
+					"item": "mild"
+				},
+				{
+					"item": "medium"
+				},
+				{
+					"item": "serious"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		}]
+	},
+	{
+		"formname": "damage notes",
+		"formitems": [{
+			"key": "Damage notes",
+			"value": "",
+			"type": "string"
+		}]
+	},
+	{
+		"formname": "Photo damage",
+		"formitems": [{
+			"key": "Damage photo archive",
+			"value": "",
+			"type": "pictures"
+		}]
+	},
+	{
+		"formname": "Damage map extract",
+		"formitems": [{
+			"key": "Damage map extract",
+			"value": "",
+			"type": "map"
+		}]
+	}]
+},
+{
+	"sectionname": "debris flow",
+	"sectiondescription": "debris flow - technical description of the event",
+	"forms": [{
+		"formname": "Event",
+		"formitems": [{
+			"key": "Event ID",
+			"value": "",
+			"type": "string",
+			"mandatory": "yes"
+		}]
+	},
+	{
+		"formname": "Secondary events",
+		"formitems": [{
+			"key": "MAXO secondary events",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimate"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Secondary events",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "Flood"
+				},
+				{
+					"item": "torrential flood"
+				},
+				{
+					"item": "Urban flood"
+				},
+				{
+					"item": "debris flow"
+				},
+				{
+					"item": "Landslide"
+				},
+				{
+					"item": "Collapse"
+				},
+				{
+					"item": "Avalanche"
+				},
+				{
+					"item": "Other"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		}]
+	},
+	{
+		"formname": "trigger mechanisms",
+		"formitems": [{
+			"key": "Quality of data",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "trigger mechanisms",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "Alluvial timber obstruction"
+				},
+				{
+					"item": "Obstruction / impulse from lateral debris"
+				},
+				{
+					"item": "Crossing obstruction"
+				},
+				{
+					"item": "Mobilization of riverbed material"
+				},
+				{
+					"item": "Barrier / embankment / lake break (ephemeral)"
+				},
+				{
+					"item": "Other"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		}]
+	},
+	{
+		"formname": "Sediment characteristics",
+		"formitems": [{
+			"value": "Matrix granulometry (GDM)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO GDM",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "GDM type",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "scarce or absent"
+				},
+				{
+					"item": "clayey-loamy"
+				},
+				{
+					"item": "sandy"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"value": "Coarse material content (CMG)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO CMG",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "CMG type",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "scarce or absent"
+				},
+				{
+					"item": "approximately equal to the matrix"
+				},
+				{
+					"item": "abundant"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		}]
+	},
+	{
+		"formname": "Training area",
+		"formitems": [{
+			"key": "Max quota [m s.l.m.]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "MAXO Quota max",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Min. share [m s.l.m.]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "MAXO Quota min",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Sediment source type (TSS)",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "Single linear incision"
+				},
+				{
+					"item": "More linear incisions"
+				},
+				{
+					"item": "Single source area"
+				},
+				{
+					"item": "More source areas"
+				},
+				{
+					"item": "Linear incisions + source areas"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "MAXO TSS",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"value": "Linear exports (AL)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO AL",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "AL linear meters",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "Cubic meters AL",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Area sales + (AA)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO AA",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Square meters AA",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "AA cubic meters",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Rearrangement (RIA)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO RIA",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "RIA linear meters",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Local debris deposits (DLD)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO DLD",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "DLD linear meters",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "DLD cubic meters",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Local lumber depots (DLL)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO DLL",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimate"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "DLL cubic meters",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Leeves (LEE)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO LEE",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "LEE linear meters",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "LEE cubic meters",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Sufficient sections of the training area (SDASZF)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO SDASZF",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Sections of riverbed sufficient training area?",
+			"value": "",
+			"type": "boolean"
+		},
+		{
+			"value": "Sections of the riverbed in an obstructed area (SDAOZF)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO SDAOZF",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimate"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Sections of the riverbed area blocked education?",
+			"value": "",
+			"type": "boolean"
+		},
+		{
+			"value": "Residual Potential (PRES)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO PRES",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Potential residue?",
+			"value": "",
+			"type": "boolean"
+		},
+		{
+			"key": "Residual potential quantity [m3]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Qmax estimates",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "V min [m / s]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "V max [m / s]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "A min [m2]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "A max [m2]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "Qmax for min values ​​[m3 / s]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "Qmax for max values ​​[m3 / s]",
+			"value": "",
+			"type": "double"
+		}]
+	},
+	{
+		"formname": "Deposit zone",
+		"formitems": [{
+			"key": "Min. share [m s.l.m.]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "MAXO Quota min",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimate"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Number of debris (NVD)",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "MAXO NVD",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"value": "Volume of deposited sediment (VSD)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO VSD",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimate"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "VSD cubic meters",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Registered timber volume (VLD)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO VLD",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "VLD cubic meters",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Average / maximum deposit thickness (SMMD)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO SMMD",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "SMMD Meters",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Largest boulder size (DMPG)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO Volume DMPG",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Volume DMPG [m3]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"key": "MAXO Diameter DMPG",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Diameter DMPG [m]",
+			"value": "",
+			"type": "double"
+		},
+		{
+			"value": "Effect on the emitter (ESE)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO ESE",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "ESE effect",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "None"
+				},
+				{
+					"item": "Barrage"
+				},
+				{
+					"item": "Deviation"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"value": "Sufficient sections of the storage area (SDASZD)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO SDASZD",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Sections of the riverbed area sufficient deposit?",
+			"value": "",
+			"type": "boolean"
+		},
+		{
+			"value": "Obstructed deposit area channel sections (SDAOZD)",
+			"size": "20",
+			"type": "labelwithline"
+		},
+		{
+			"key": "MAXO SDAOZD",
+			"values": {
+				"items": [{
+					"item": ""
+				},
+				{
+					"item": "measured, ascertained"
+				},
+				{
+					"item": "hypothesis, estimation"
+				},
+				{
+					"item": "still to be detected"
+				},
+				{
+					"item": "not determinable"
+				},
+				{
+					"item": "data not present"
+				}]
+			},
+			"value": "",
+			"type": "stringcombo"
+		},
+		{
+			"key": "Sections of riverbed deposit area obstructed?",
+			"value": "",
+			"type": "boolean"
+		}]
+	},
+	{
+		"formname": "Casting notes",
+		"formitems": [{
+			"key": "Casting notes",
+			"value": "",
+			"type": "string"
+		}]
+	},
+	{
+		"formname": "Casting photo",
+		"formitems": [{
+			"key": "Casting photo archive",
+			"value": "",
+			"type": "pictures"
+		}]
+	},
+	{
+		"formname": "Cast map extract",
+		"formitems": [{
+			"key": "Cast map extract",
+			"value": "",
+			"type": "map"
+		}]
+	}]
+}]

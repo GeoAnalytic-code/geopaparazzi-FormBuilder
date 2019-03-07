@@ -38,14 +38,15 @@
     <!-- <link rel="manifest" href="manifest.json">  -->
 
     <!-- ---- Style/Look ---- -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Remote:    -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Local:
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css"/>
+    -->
     <link rel="stylesheet" type="text/css" href="formbuilder.css"/>
 </head>
 
 <body>
-<!-- For ElectronJS (Optional): --
-<script>window.$ = window.jQuery = require('jquery');</script>  
--->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="#">FormBuilder</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -140,7 +141,7 @@
       </div>
       <div class="form-row">
         <div class="col-10"><input type="text" class="form-control" id="form-Name"></div>
-        <div class="col-2"><button type="button" class="btn btn-primary" id="btn-formSave">Save</button></div>
+        <div class="col-2"><button type="button" class="btn btn-primary" id="btn-FormSave">Save</button></div>
       </div>
   </fieldset>
   <hr><!-- ----------------------------------------------------------------------------------- -->
@@ -170,7 +171,7 @@
       <div class="form-row">
         <div class="col-5"><input type="text" class="form-control" id="formItem-Key"></div>
         <div class="col-5"><input type="text" class="form-control" id="formItem-Label"></div>
-        <div class="col-2"><button type="button" class="btn btn-primary" id="btn-formItemSave">Save</button></div>
+        <div class="col-2"><button type="button" class="btn btn-primary" id="btn-FormItemSave">Save</button></div>
       </div>    
       <div class="form-row">
         <div class="col-4"><label for="formItem-Type">Type:</label></div>
@@ -225,17 +226,23 @@
   </fieldset>
 </div>
 
+<!--  Remote: -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!-- Local:
+<script type="text/javascript" src="lib/jquery/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap/js/bootstrap.js"></script>
+  -->
 
-<!-- These are included here in case your [django, etc] server needs to do a substitution: -->
+<!-- Here's an example for using a django (or other template-oriented) server, and it needs to do a substitution: -->
+<!--
 <script >
     "use strict";
     let csrf_token = "{{ csrf_token }}";
-    let gsServerUrlFileList    = "files_v2.json";
-    let gsServerUrlSaveTagFile = "upload.php";
+    let gsServerUrlFileList    = "{% url 'tag-list' %}" + "?format=json";
+    let gsServerUrlSaveTagFile = "{% url 'tag-list' %}";
 </script>
-
+-->
 <script src="formbuilder.js"></script>
 
 </body>

@@ -1,0 +1,23 @@
+{
+	"count": 3,
+	"next": null,
+	"previous": null,
+	"results": [{
+		"path": "/geopaparazzi/data/demo/bolzano/bolzano_field_survey_en.json",
+		"modifieddate": "2018-09-30T00:03:17.045171Z",
+		"url": "tags/bolzano/bolzano_field_survey_en.json",
+		"size": "33247"
+	},
+	{
+		"path": "/Trails/waiparous/tags.json",
+		"modifieddate": "2018-10-02T16:03:32.142782Z",
+		"url": "tags/waiparous/tags.json",
+		"size": "15448"
+	},
+	{
+		"path": "/Trails/trailguide/trailguide.json",
+		"modifieddate": "2018-10-02T20:27:22.688242Z",
+		"url": "tags/trailguide/TrailGuide.json",
+		"size": "10917"
+	}]
+}

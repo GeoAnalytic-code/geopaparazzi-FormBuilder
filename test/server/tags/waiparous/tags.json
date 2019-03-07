@@ -1,0 +1,92 @@
+[
+    {
+        "sectionname": "Image Note",
+        "sectiondescription": "note with image",
+        "forms": [
+            {
+                "formname": "image note",
+                "formitems": [
+					{
+                        "key": "description",
+                        "islabel": "true",
+                        "value": "",
+                        "type": "string",
+                        "mandatory": "no"
+                    },
+                    {
+						"key": "pictures of the environment around the note",
+                        "value": "",
+                        "type": "pictures"
+					}
+				]
+            }
+        ]
+    },{
+        "sectionname": "Sketch Note",
+        "sectiondescription": "note with sketch",
+        "forms": [
+            {
+                "formname": "sketch note",
+                "formitems": [
+					{
+                        "key": "description",
+                        "islabel": "true",
+                        "value": "",
+                        "type": "string",
+                        "mandatory": "no"
+                    },
+                    {
+						"key": "sketches with drawings of the environment around the note",
+                        "value": "",
+                        "type": "sketch"
+					}
+				]
+            }
+        ]
+    },{
+        "sectionname": "Map Note",
+        "sectiondescription": "note with map image",
+        "forms": [
+            {
+                "formname": "map image note",
+                "formitems": [
+					{
+                        "key": "description",
+                        "islabel": "true",
+                        "value": "",
+                        "type": "string",
+                        "mandatory": "no"
+                    },
+                    {
+						"key": "map around note",
+                        "value": "",
+                        "type": "map"
+					}
+				]
+            }
+        ]
+	},{
+        "sectionname": "Text Note",
+        "sectiondescription": "a simple text note",
+        "forms": [
+            {
+                "formname": "text note",
+                "formitems": [
+                    {
+                        "key": "title",
+                        "value": "",
+                        "islabel": "true",
+                        "type": "string",
+                        "mandatory": "no"
+                    },
+                    {
+                        "key": "description",
+                        "value": "",
+                        "type": "string",
+                        "mandatory": "no"
+                    }
+                ]
+            }
+        ]
+	}
+]
