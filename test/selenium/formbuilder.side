@@ -2,7 +2,7 @@
   "id": "2025b29a-e29e-40aa-bb73-04122e38df96",
   "version": "2.0",
   "name": "Formbuilder",
-  "url": "http://localhost/FormBuilder/index.html",
+  "url": "http://localhost/FormBuilder/formbuilder.html",
   "tests": [{
     "id": "f70d98f9-4d7a-4cde-8e39-b60af0a94eea",
     "name": "image",
@@ -10,7 +10,7 @@
       "id": "0be1910b-1d24-47ac-88da-7b234c8006a3",
       "comment": "",
       "command": "open",
-      "target": "/FormBuilder/index.html",
+      "target": "/FormBuilder/formbuilder.html",
       "targets": [],
       "value": ""
     }, {
@@ -369,7 +369,7 @@
       "id": "45bcf018-a82d-4d7b-a39d-d1f322944899",
       "comment": "",
       "command": "open",
-      "target": "/FormBuilder/index.html",
+      "target": "/FormBuilder/formbuilder.html",
       "targets": [],
       "value": ""
     }, {
@@ -733,7 +733,7 @@
       "id": "f00feaf0-12b3-42c6-8110-34ff503e6d59",
       "comment": "",
       "command": "open",
-      "target": "http://localhost/FormBuilder/index.html",
+      "target": "http://localhost/FormBuilder/formbuilder.html",
       "targets": [],
       "value": ""
     }, {
@@ -3579,6 +3579,6 @@
     "timeout": 300,
     "tests": ["f70d98f9-4d7a-4cde-8e39-b60af0a94eea"]
   }],
-  "urls": ["http://localhost/", "http://localhost/FormBuilder/index.html"],
+  "urls": ["http://localhost/", "http://localhost/FormBuilder/formbuilder.html"],
   "plugins": []
 }
