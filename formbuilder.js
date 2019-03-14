@@ -29,28 +29,36 @@ var app = {
     // Application Constructor
     initialize: function() {
         if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-            document.addEventListener('deviceready',      this.onDeviceReady.bind(this), false);
+            document.addEventListener("deviceready",      this.onDeviceReady.bind(this), false);
         } else {
-            document.addEventListener('DOMContentLoaded', this.onDeviceReadyDesktop.bind(this));
+            document.addEventListener("DOMContentLoaded", this.onDeviceReadyDesktop.bind(this));
         }
     },
-
     onDeviceReady: function() {
         this.start();
     },
-
     onDeviceReadyDesktop: function() {
         this.start();
     },
 
     start: function() {
-                                                // examples of urls to a "simple" server:
-        const gsServerUrlFileListSimple = "";     // "files_v2.json";
-        const gsServerUrlSaveTagFileSimple = "";  // "upload.php";
-        const gsFileNameDefault = "tags.json";
+        /* ------------------------------------------------------ */
+        /*  Variables if using a server to load and save files (optional)
+        /* ------------------------------------------------------ */
+        // examples of urls to a "simple" server:
+        const gsServerUrlFileListSimple = "test/server/files_simple.json";     // "test/server/files_simple.json";
+        const gsServerUrlSaveTagFileSimple = "test/server/upload.php";  // "test/server/upload.php";
+        if (typeof csrf_token == "undefined") {  //just in case it is not defined in the HTML
+            var csrf_token = "";                // an optional security token for server communication
+        }
 
+        /* ------------------------------------------------------ */
+        /*  Variables for local file system load and save:
+        /* ------------------------------------------------------ */
+        const gsFileNameDefault = "tags.json";
         let gsFileName = null;
         let goFiles = null;
+
         let goSections = [];
         let giSectionSelected = null;
         let giFormSelected = null;
@@ -66,36 +74,36 @@ var app = {
         if (window.File && window.FileReader && window.FileList && window.Blob && window.URL) {
           // Great success! All the File APIs are supported.
         } else {
-          alert('This browser does not support reading and saving files to your local file system.');
+          alert("This browser does not support reading and saving files to your local file system.");
         };
         if( window.FormData === undefined ) {
-            alert('This browser does not support saving files to a server.');
+            alert("This browser does not support saving files to a server.");
         }
 
 
         // ------  HTML Menu Handlers: -------
-        $('#menu-fileNew').click(clearAll);
+        $("#menu-fileNew").click(clearAll);
         // When the open menu item is clicked, send a click to the hidden button to open a local file:
-        $('#menu-fileOpen').click( function(e){
-                $('#fileOpen').click();
+        $("#menu-fileOpen").click( function(e){
+                $("#fileOpen").click();
                 e.preventDefault(); // prevent navigation to "#"
         });
-        $('#fileOpen').change(openFile);
-        $('#menu-fileSave').click(saveJSON);
+        $("#fileOpen").change(openFile);
+        $("#menu-fileSave").click(saveJSON);
 
-        $('#menu-fileLoadServer').click(loadListFromServer);
-        $('#menu-fileSaveServer').click(saveToServer);
+        $("#menu-fileLoadServer").click(loadListFromServer);
+        $("#menu-fileSaveServer").click(getFileNameForServer);
 
         // ------ Hide the server menu items if no server urls defined: ------
         if (gsServerUrlFileListSimple == "") {                                              // no simple server
-            if ( (typeof variable == 'undefined') || gsServerUrlFileList.includes("{") ) {  // no django server
-                $('#menu-fileLoadServer').hide();
-                $('#menu-fileSaveServer').hide();
+            if ( (typeof gsServerUrlFileList == "undefined") || gsServerUrlFileList.includes("{") ) {  // no django server
+                $("#menu-fileLoadServer").hide();
+                $("#menu-fileSaveServer").hide();
             }
         } else {
-            if (typeof variable == 'undefined') {
-                let gsServerUrlFileList    = "";
-                let gsServerUrlSaveTagFile = "";
+            if (typeof gsServerUrlFileList == "undefined") {
+                var gsServerUrlFileList    = "";
+                var gsServerUrlSaveTagFile = "";
             }
             gsServerUrlFileList    = gsServerUrlFileListSimple;
             gsServerUrlSaveTagFile = gsServerUrlSaveTagFileSimple;
@@ -113,8 +121,8 @@ var app = {
             let files = evt.target.files; // FileList object
             // Loop through the FileList (ToDo: list if multi files selected)
             for (let i = 0, f; f = files[i]; i++) {
-                $('#sel-File').append(
-                    $('<option/>', {
+                $("#sel-File").append(
+                    $("<option/>", {
                         value: f.name,
                         text : f.name
                 }));
@@ -141,7 +149,7 @@ var app = {
             saveFile(gsFileName,uSections);
         }
         function saveFile(filename, url) {
-            let fileLink = document.getElementById('fileSave');
+            let fileLink = document.getElementById("fileSave");
             if (filename) {
                 fileLink.download = filename;
             } else {
@@ -152,25 +160,41 @@ var app = {
         }
 
         // ------ Server Load/Save ------
-        $('#sel-File').change(onSelectFile);
+        $("#btn-FileNameSave").click(setFileName);
+        $("#sel-File").change(onSelectFile);
+
         function loadListFromServer(){
             let serverUrl = "";
             if (gsServerUrlFileList || gsServerUrlFileList.includes("{") ) {
-                
+                // ToDo: ?
             }
             $.getJSON( gsServerUrlFileList, function( data ) {
                 goFiles = data;
-                $('#sel-File').empty();
+                $("#sel-File").empty();
                 populateFileList(goFiles);
-                $('#fs-File-List').prop('disabled',false );
+                $("#fs-File-List").prop("disabled",false );
             });
+        }
+        function getFileNameForServer (){
+            if (typeof gsFileName == "undefined" || gsFileName == null || gsFileName == "" ){
+//                gsFileName = gsFileNameDefault;
+                $("#filename").val(gsFileNameDefault);
+            }
+            $("#dialagSaveAs").modal("show")
+        }
+        function setFileName(){
+            gsFileName = $("#filename").val();
+            if (gsFileName == ""){
+                gsFileName = gsFileNameDefault;
+            }
+            saveToServer();
         }
         function saveToServer(){
             let sSections = JSON.stringify(goSections);
             let blSections = new Blob([sSections], {type: "application/json"});
             let fileOfBlob = new File([blSections], gsFileName);
 
-            aFormData = new FormData();  	
+            let aFormData = new FormData();  	
             aFormData.append("url", fileOfBlob);
             aFormData.append("path", gsFileName);
             aFormData.append("csrfmiddlewaretoken", csrf_token);  // set in html
@@ -181,32 +205,39 @@ var app = {
                 filename: gsFileName,
                 cache: false,
                 contentType: false,
-                enctype: 'multipart/form-data',
+                enctype: "multipart/form-data",
                 processData: false,
-                method: 'POST',
-                type:   'POST', // For jQuery < 1.9
+                method: "POST",
+                type:   "POST", // For jQuery < 1.9
                 success: function(response){
                     console.log(response);		// ToDo: parse [JSON] response
                 }
             });
         }
+
+
         function populateFileList(files){
-            let length = files.count;  // count is a JSON member
-            $('#sel-File').append(
-                $('<option/>', {
+            let length = files.results.length;
+/*
+            if (typeof files.count != "undefined") {
+                length = files.count;  // count is a JSON member
+            }
+*/
+            $("#sel-File").append(
+                $("<option/>", {
                     value: "",
                     text : "Select a tags file:"
             }));
             for (let i = 0; i < length; i++) {
-                $('#sel-File').append(
-                    $('<option/>', {
+                $("#sel-File").append(
+                    $("<option/>", {
                         value: files.results[i].url,
                         text : files.results[i].path
                 }));
             };
         }
         function onSelectFile(){
-            let url = $('#sel-File').val();
+            let url = $("#sel-File").val();
             clearSection();
             gsFileName = url.split("/").pop();
             if (url != ""){
@@ -220,77 +251,89 @@ var app = {
         // ------ Clear Page Widgets ------
         function clearAll(){
             goSections = [];
-            $('#sel-File').empty();
+            $("#sel-File").empty();
             clearSection();
-            $('#fs-Section-List').prop('disabled',false );  // so user can create a new file
+            $("#fs-Section-List").prop("disabled",false );  // so user can create a new file
         }
         function clearSection(){
-            $('#fs-Section-Details input').val('');
-            $('#sel-Section').empty();
+            $("#fs-Section-Details input").val("");
+            $("#sel-Section").empty();
             giSectionSelected = null;
+            disableRowButtons(true, "Section", ["Delete","Up","Down","Save"]);
             clearForm();
         }
         function clearForm(){
-            $('#sel-Form').empty();
-            $('#fs-Form-Details input').val('');
+            $("#sel-Form").empty();
+            $("#fs-Form-Details input").val("");
             giFormSelected = null;
+            disableRowButtons(true, "Form", ["New","Delete","Up","Down","Save"]);
             clearFormItem();
         }
         function clearFormItem(){
-            $('#sel-FormItem').empty();
-            $('#fs-FormItem-Details input').val('');
-            $('#formItem-Type').val('string');
+            $("#sel-FormItem").empty();
+            $("#fs-FormItem-Details input").val("");
+            $("#formItem-Type").val("string");
             giFormItemSelected = null;
+            disableRowButtons(true, "FormItem", ["New","Delete","Up","Down","Save"])
             deleteUniqueFormItems();
         }
 
-        /* ------------------------------------------------------
-        //  Section Handling:
+        /* ------------------------------------------------------ */
+        /*  Section Handling:
         // ------------------------------------------------------
         */
-        $('#sel-Section').change(onSelectSection);
-        $('#btn-SectionNew'   ).click(onClickSectionNew);
-        $('#btn-SectionDelete').click(onClickSectionDelete);
-        $('#btn-SectionUp'    ).click(onClickSectionUp);
-        $('#btn-SectionDown'  ).click(onClickSectionDown);
-        $('#btn-SectionSave'  ).click(onClickSectionSave);
+        $("#sel-Section").change(onSelectSection);
+        $("#btn-SectionNew"   ).click(onClickSectionNew);
+        $("#btn-SectionDelete").click(onClickSectionDelete);
+        $("#btn-SectionUp"    ).click(onClickSectionUp);
+        $("#btn-SectionDown"  ).click(onClickSectionDown);
+
+        $("#section-Name"       ).on("input",onChangeSectionDetails);
+        $("#section-Description").on("input",onChangeSectionDetails);
 
         function populateSectionList(){
-            $('#fs-Section-List').prop('disabled',false );
-            $('#sel-Section').empty();
+            $("#fs-Section-List").prop("disabled",false );
+            $("#sel-Section").empty();
             for (let i = 0; i < goSections.length; i++) {
-                $('#sel-Section').append(
-                    $('<option/>', {
+                $("#sel-Section").append(
+                    $("<option/>", {
                         value: i,
                         text : goSections[i].sectionname
                 }));
             };
+            if (goSections.length == 0){
+                disableRowButtons(true, "Section", ["Delete","Up","Down","Save"])
+            }
         }
         function onSelectSection(){
-            let selected = $('#sel-Section').val();
+            let selected = $("#sel-Section").val();
             giSectionSelected = selected;          // set the global value
+            disableRowButtons(false, "Section", ["Delete","Up","Down"])
             populateSectionDetails(selected);      // show the details of the selected item
-            $('#fs-Section-Details').prop('disabled',false );  //enable the details for editing
+            $("#fs-Section-Details").prop("disabled",false );  //enable the details for editing
             clearForm();                           // erase any existing forms listed
-            populateFormList();            // show the forms for this section
+            populateFormList();                    // show the forms for this section
+            disableRowButtons(false, "Form", ["New"]);
             clearFormItem();                       // clear the form items (until the user selects a form)
         }
         function populateSectionDetails(selected){
-            $('#section-Name').val(goSections[selected].sectionname);
-            $('#section-Description').val(goSections[selected].sectiondescription);
+            $("#section-Name").val(goSections[selected].sectionname);
+            $("#section-Description").val(goSections[selected].sectiondescription);
+            disableRowButtons(true, "Section", ["Save"]);        
         }
         function onClickSectionNew(){
             let formsArray = [];
             let section = {sectionname:"new", sectiondescription: "new", forms:formsArray };
             goSections.push(section);
             populateSectionList();
-            $('#sel-Section').val(goSections.length-1);
+            $("#sel-Section").val(goSections.length-1);
             onSelectSection(goSections.length-1)
         }
         function onClickSectionDelete(){
             goSections.splice(giSectionSelected,1);
-            $('#fs-Section-Details input').val('');
+            $("#fs-Section-Details input").val("");
             clearForm();
+            disableRowButtons(true, "Form", ["New"]);
             populateSectionList();
         }
         function onClickSectionUp(){
@@ -303,7 +346,7 @@ var app = {
                 // --- set global: ---
                 giSectionSelected = newSelected;
                 // --- highlight selection: ---
-                $('#sel-Section').val(giSectionSelected);
+                $("#sel-Section").val(giSectionSelected);
             }
         }
         function onClickSectionDown(){
@@ -316,59 +359,70 @@ var app = {
                 // --- set global: ---
                 giSectionSelected = newSelected;
                 // --- highlight selection: ---
-                $('#sel-Section').val(giSectionSelected);
+                $("#sel-Section").val(giSectionSelected);
             }
         }   
         function onClickSectionSave(){
-            goSections[giSectionSelected].sectionname = $('#section-Name').val();
-            goSections[giSectionSelected].sectiondescription = $('#section-Description').val();
-            $('#sel-Section option:selected').text(goSections[giSectionSelected].sectionname);
+            goSections[giSectionSelected].sectionname = $("#section-Name").val();
+            goSections[giSectionSelected].sectiondescription = $("#section-Description").val();
+            $("#sel-Section option:selected").text(goSections[giSectionSelected].sectionname);
+            disableRowButtons(true, "Section", ["Save"]);        
+        }
+        function onChangeSectionDetails(){
+            disableRowButtons(false, "Section", ["Save"]);        
         }
 
-        /* ------------------------------------------------------
-        //  Form Handling:
+        /* ------------------------------------------------------ */
+        /*  Form Handling:
         // ------------------------------------------------------
         */
-        $('#sel-Form').change(onSelectForm);
-        $('#btn-FormNew'   ).click(onClickFormNew);
-        $('#btn-FormDelete').click(onClickFormDelete);
-        $('#btn-FormUp'    ).click(onClickFormUp);
-        $('#btn-FormDown'  ).click(onClickFormDown);
-        $('#btn-FormSave'  ).click(onClickFormSave);
+        $("#sel-Form").change(onSelectForm);
+        $("#btn-FormNew"   ).click(onClickFormNew);
+        $("#btn-FormDelete").click(onClickFormDelete);
+        $("#btn-FormUp"    ).click(onClickFormUp);
+        $("#btn-FormDown"  ).click(onClickFormDown);
+        $("#btn-FormSave"  ).click(onClickFormSave);
+        $("#form-Name"     ).on("input",onChangeFormDetails);
 
         function populateFormList(){  
-            $('#fs-Form-List').prop('disabled',false );
-            $('#sel-Form').empty();
+            $("#fs-Form-List").prop("disabled",false );
+            $("#sel-Form").empty();
             for (let i = 0; i < goSections[giSectionSelected].forms.length; i++) {
-                $('#sel-Form').append(
-                    $('<option/>', {
+                $("#sel-Form").append(
+                    $("<option/>", {
                         value: i,
                         text : goSections[giSectionSelected].forms[i].formname
                 }));    
             };
+            if (goSections[giSectionSelected].forms.length == 0){
+                disableRowButtons(true, "Form", ["Delete","Up","Down","Save"])
+            }
         }
         function onSelectForm(){
-            let selected = $('#sel-Form').val();
+            let selected = $("#sel-Form").val();
             giFormSelected = selected;
+            disableRowButtons(false, "Form", ["Delete","Up","Down"])
             populateFormDetails(selected);
-            $('#fs-Form-Details').prop('disabled',false );
+            $("#fs-Form-Details").prop("disabled",false );
             clearFormItem();
             populateFormItemList(selected);
+            disableRowButtons(false, "FormItem", ["New"]);
         }
         function populateFormDetails(selected){
-            $('#form-Name').val(goSections[giSectionSelected].forms[selected].formname);
+            $("#form-Name").val(goSections[giSectionSelected].forms[selected].formname);
+            disableRowButtons(true, "Form", ["Save"]);
         }
         function onClickFormNew(){
             let formItemsArray = [];
             let form = {formname:"new", formitems:formItemsArray };
             goSections[giSectionSelected].forms.push(form);
             populateFormList();
-            $('#sel-Form').val(goSections[giSectionSelected].forms.length-1);
+            $("#sel-Form").val(goSections[giSectionSelected].forms.length-1);
             onSelectForm(goSections[giSectionSelected].forms.length-1);
         }
         function onClickFormDelete(){
             goSections[giSectionSelected].forms.splice(giFormSelected,1);
-            $('#fs-Form-Details input').val('');
+            $("#fs-Form-Details input").val("");
             clearFormItem();
             populateFormList();
         }
@@ -382,7 +436,7 @@ var app = {
                 // --- set global: ---
                 giFormSelected = newSelected;
                 // --- highlight selection: ---
-                $('#sel-Form').val(giFormSelected);
+                $("#sel-Form").val(giFormSelected);
             }
         }
         function onClickFormDown(){
@@ -395,29 +449,36 @@ var app = {
                 // --- set global: ---
                 giFormSelected = newSelected;
                 // --- highlight selection: ---
-                $('#sel-Form').val(giFormSelected);
+                $("#sel-Form").val(giFormSelected);
             }
         }   
         function onClickFormSave(){
-            goSections[giSectionSelected].forms[giFormSelected].formname = $('#form-Name').val();
-            $('#sel-Form option:selected').text(goSections[giSectionSelected].forms[giFormSelected].formname);
+            goSections[giSectionSelected].forms[giFormSelected].formname = $("#form-Name").val();
+            $("#sel-Form option:selected").text(goSections[giSectionSelected].forms[giFormSelected].formname);
+            disableRowButtons(true, "Form", ["Save"]);
+        }
+        function onChangeFormDetails(){
+            disableRowButtons(false, "Form", ["Save"]);
         }
 
-        /* ------------------------------------------------------
-        //  FormItem Handling:
+        /* ------------------------------------------------------ */
+        /*  FormItem Handling:
         // ------------------------------------------------------
         */
-        $('#sel-FormItem').change(onSelectFormItem);
-        $('#btn-FormItemNew'   ).click(onClickFormItemNew);
-        $('#btn-FormItemDelete').click(onClickFormItemDelete);
-        $('#btn-FormItemUp'    ).click(onClickFormItemUp);
-        $('#btn-FormItemDown'  ).click(onClickFormItemDown);
-        $('#btn-FormItemSave'  ).click(onClickFormItemSave);
-        $('#formItem-Type').change(onSelectFormItemType);
+        $("#sel-FormItem").change(onSelectFormItem);
+        $("#btn-FormItemNew"   ).click(onClickFormItemNew);
+        $("#btn-FormItemDelete").click(onClickFormItemDelete);
+        $("#btn-FormItemUp"    ).click(onClickFormItemUp);
+        $("#btn-FormItemDown"  ).click(onClickFormItemDown);
+        $("#btn-FormItemSave"  ).click(onClickFormItemSave);
+        $("#formItem-Key"  ).on("input",onChangeFormItemDetails);
+        $("#formItem-Label").on("input",onChangeFormItemDetails);
+
+        $("#formItem-Type").change(onSelectFormItemType);
 
         function populateFormItemList(selectedForm){
-            $('#fs-FormItem-List').prop('disabled',false );
-            $('#sel-FormItem').empty();
+            $("#fs-FormItem-List").prop("disabled",false );
+            $("#sel-FormItem").empty();
             for (let i = 0; i < goSections[giSectionSelected].forms[giFormSelected].formitems.length; i++) {
                 let sText = "";
                 if (goSections[giSectionSelected].forms[giFormSelected].formitems[i].type.startsWith("label")){
@@ -425,37 +486,42 @@ var app = {
                 } else {
                     sText = goSections[giSectionSelected].forms[giFormSelected].formitems[i].key;
                 };
-                $('#sel-FormItem').append(
-                    $('<option/>', {
+                $("#sel-FormItem").append(
+                    $("<option/>", {
                         value: i,
                         text : sText
                 }));    
             };
             deleteUniqueFormItems();
+            if (goSections[giSectionSelected].forms[giFormSelected].formitems.length == 0){
+                disableRowButtons(true, "FormItem", ["Delete","Up","Down","Save"])
+            }
         }
         function onSelectFormItem(){
-            let selected = $('#sel-FormItem').val();
+            let selected = $("#sel-FormItem").val();
             giFormItemSelected = selected;
-            $('#fs-FormItem-Details').prop('disabled',false );
+            disableRowButtons(false, "FormItem", ["Delete","Up","Down"])
+            $("#fs-FormItem-Details").prop("disabled",false );
             populateFormItemDetails(selected);
         }
         function populateFormItemDetails(selected){
             let oFormItem = goSections[giSectionSelected].forms[giFormSelected].formitems[selected];
 
             // ------ common elements: ------
-            $('#formItem-Key').val(oFormItem.key);
-            $('#formItem-Label').val(oFormItem.label);
-            $('#formItem-Value').val(oFormItem.value);
+            $("#formItem-Key").val(oFormItem.key);
+            $("#formItem-Label").val(oFormItem.label);
+            $("#formItem-Value").val(oFormItem.value);
             
-            $('#formItem-islabel').prop('checked',oFormItem.islabel==="true" );
-            $('#formItem-mandatory').prop('checked',oFormItem.mandatory==="yes");   
+            $("#formItem-islabel").prop("checked",oFormItem.islabel==="true" );
+            $("#formItem-mandatory").prop("checked",oFormItem.mandatory==="yes");   
             
             SelectElement("formItem-Type",oFormItem.type);  // does this hilite?
             populateUniqueFormItemDetails(oFormItem.type)
+            disableRowButtons(true, "FormItem", ["Save"]);
         }
 
         function onSelectFormItemType(){
-            let selected = $('#formItem-Type').val();
+            let selected = $("#formItem-Type").val();
             populateUniqueFormItemDetails(selected)
         }
         function populateUniqueFormItemDetails(selected){
@@ -463,25 +529,25 @@ var app = {
             // ------ type-specific elements: ------
             deleteUniqueFormItems();
             if(selected.startsWith("label")){
-        //      $('#formItem-Key').val(oFormItem.value);  // a [form] label has no key (since no input)
+        //      $("#formItem-Key").val(oFormItem.value);  // a [form] label has no key (since no input)
 
-                $("<div class='col-4'><label for='Name'>URL:</label></div>").appendTo($('#uniqueFormItems_labels_1'));
-                $("<div class='col-4'><input type='text' class='form-control' id='formItem-Url'></div>").appendTo($('#uniqueFormItems_inputs_1'));
-                $('#formItem-Url').val(oFormItem.url);
+                $("<div class='col-4'><label for='Name'>URL:</label></div>").appendTo($("#uniqueFormItems_labels_1"));
+                $("<div class='col-4'><input type='text' class='form-control' id='formItem-Url'></div>").appendTo($("#uniqueFormItems_inputs_1"));
+                $("#formItem-Url").val(oFormItem.url);
                 
-                $("<div class='col  '><label for='Name'>Size:</label></div>").appendTo($('#uniqueFormItems_labels_1'));
-                $("<div class='col-4'><input type='text' class='form-control' id='formItem-Size'></div>").appendTo($('#uniqueFormItems_inputs_1'));
-                $('#formItem-Size').val(oFormItem.size);
+                $("<div class='col  '><label for='Name'>Size:</label></div>").appendTo($("#uniqueFormItems_labels_1"));
+                $("<div class='col-4'><input type='text' class='form-control' id='formItem-Size'></div>").appendTo($("#uniqueFormItems_inputs_1"));
+                $("#formItem-Size").val(oFormItem.size);
                 
             } else {
-//                $('#formItem-Key').val(oFormItem.key);  // ? (the user may have already typed in a new value)
+//                $("#formItem-Key").val(oFormItem.key);  // ? (the user may have already typed in a new value)
                 
                 // under construction: stringcombo, multistringcombo, autocompletestringcombo
                 // ToDo:  connectedstringcombo, onetomanystringcombo, autocompleteconnectedstringcombo
-                if(selected.endsWith('combo')){   
-                    $("<div class='col-4'><label for='Name'>Choices (you can cut-and-paste!):</label></div>").appendTo($('#uniqueFormItems_labels_1'));
-                    $("<div class='col-4'><textarea rows='6' class='form-control' id='formItem-Items'></textarea></div>").appendTo($('#uniqueFormItems_inputs_1'));
-                    let items = $('#formItem-Items');
+                if(selected.endsWith("combo")){   
+                    $("<div class='col-4'><label for='Name'>Choices (you can cut-and-paste!):</label></div>").appendTo($("#uniqueFormItems_labels_1"));
+                    $("<div class='col-4'><textarea rows='6' class='form-control' id='formItem-Items'></textarea></div>").appendTo($("#uniqueFormItems_inputs_1"));
+                    let items = $("#formItem-Items");
                     for (let i = 0; i < oFormItem.values.items.length; i++) {
                         items.val( items.val() + oFormItem.values.items[i].item);
                         if (i!=oFormItem.values.items.length-1) {
@@ -489,28 +555,28 @@ var app = {
                         }
                     }
                     if(oFormItem.type.startsWith("connected")){
-                         $("<div class='switch'><label>Off<input type='checkbox'> <span class='lever'></span> On</label></div>").appendTo($('#uniqueFormItems_labels_1'));
+                         $("<div class='switch'><label>Off<input type='checkbox'> <span class='lever'></span> On</label></div>").appendTo($("#uniqueFormItems_labels_1"));
                     }
                 }
             }
         }
         function deleteUniqueFormItems(){
-            $('#uniqueFormItems_labels_1').empty();
-            $('#uniqueFormItems_inputs_1').empty();
+            $("#uniqueFormItems_labels_1").empty();
+            $("#uniqueFormItems_inputs_1").empty();
         }
 
         function onClickFormItemNew(){
             let formItem = {key:"new", type:"string", value:"new"};
             goSections[giSectionSelected].forms[giFormSelected].formitems.push(formItem);
             populateFormItemList();
-            $('#sel-FormItem').val(goSections[giSectionSelected].forms[giFormSelected].formitems.length-1);
+            $("#sel-FormItem").val(goSections[giSectionSelected].forms[giFormSelected].formitems.length-1);
             onSelectFormItem(goSections[giSectionSelected].forms[giFormSelected].formitems.length-1);
         }
         function onClickFormItemDelete(){
             // --- remove item from list: ---
             goSections[giSectionSelected].forms[giFormSelected].formitems.splice(giFormItemSelected,1);
-            $('#fs-FormItem-Details input').val(''); // empty all inputs
-            $('#formItem-Type').val('string');      // set to a good default
+            $("#fs-FormItem-Details input").val(""); // empty all inputs
+            $("#formItem-Type").val("string");      // set to a good default
             populateFormItemList(giFormSelected);   // show new list
         }
         function onClickFormItemUp(){
@@ -523,7 +589,7 @@ var app = {
                 // --- set global: ---
                 giFormItemSelected = newSelected;
                 // --- highlight selection: ---
-                $('#sel-FormItem').val(giFormItemSelected);
+                $("#sel-FormItem").val(giFormItemSelected);
             }
         }
         function onClickFormItemDown(){
@@ -536,60 +602,71 @@ var app = {
                 // --- set global: ---
                 giFormItemSelected = newSelected;
                 // --- highlight selection: ---
-                $('#sel-FormItem').val(giFormItemSelected);
+                $("#sel-FormItem").val(giFormItemSelected);
             }   
         }   
         function onClickFormItemSave(){
             let oFormItem = goSections[giSectionSelected].forms[giFormSelected].formitems[giFormItemSelected];
 
             // ------ common items: ------
-            oFormItem.type = $('#formItem-Type').val();
+            oFormItem.type = $("#formItem-Type").val();
 
-            if ( $('#formItem-Value').length && ($('#formItem-Value').val() != "") ){
-                oFormItem.value = $('#formItem-Value').val();
+            if ( $("#formItem-Value").length && ($("#formItem-Value").val() != "") ){
+                oFormItem.value = $("#formItem-Value").val();
             }
 
             // ToDo: add "label" handling
             if(oFormItem.type.startsWith("label")){
-                let formItemSelected = $('#sel-FormItem option:selected');
+                let formItemSelected = $("#sel-FormItem option:selected");
                 formItemSelected.text(oFormItem.value);
             } else {
-                if ( $('#formItem-Key').length && ($('#formItem-Key').val() != "") ){
-                    oFormItem.key = $('#formItem-Key').val();
-                    let formItemSelected = $('#sel-FormItem option:selected');
+                if ( $("#formItem-Key").length && ($("#formItem-Key").val() != "") ){
+                    oFormItem.key = $("#formItem-Key").val();
+                    let formItemSelected = $("#sel-FormItem option:selected");
                     formItemSelected.text(oFormItem.key);
                 }
             }
 
-            if ( $('#formItem-Label').length && ($('#formItem-Label').val() != "") ){
-                oFormItem.label = $('#formItem-Label').val();
+            if ( $("#formItem-Label").length && ($("#formItem-Label").val() != "") ){
+                oFormItem.label = $("#formItem-Label").val();
             }
-            if ( $('#formItem-islabel').is(':checked') )  oFormItem.islabel = "true";
-            if ( $('#formItem-mandatory').is(':checked') )  oFormItem.mandatory = "yes";
+            if ( $("#formItem-islabel").is(":checked") )  oFormItem.islabel = "true";
+            if ( $("#formItem-mandatory").is(":checked") )  oFormItem.mandatory = "yes";
             
             // ------ Type Specific: ------
-            if ( $('#formItem-Url').length && ($('#formItem-Url').val() != "") ){
-                oFormItem.url = $('#formItem-Url').val();
+            if ( $("#formItem-Url").length && ($("#formItem-Url").val() != "") ){
+                oFormItem.url = $("#formItem-Url").val();
             }
-            if ( $('#formItem-Size').length && ($('#formItem-Size').val() != "") ){
-                oFormItem.size = $('#formItem-Size').val();
+            if ( $("#formItem-Size").length && ($("#formItem-Size").val() != "") ){
+                oFormItem.size = $("#formItem-Size").val();
             }
             
-            if ( $('#formItem-Items').length ){
+            if ( $("#formItem-Items").length ){
                 oFormItem.values.items = [];
-                let lines = $('#formItem-Items').val().split('\n');
+                let lines = $("#formItem-Items").val().split("\n");
         //        let i = 0;
                 $.each(lines, function(){
                     oFormItem.values.items.push(this);
         //            i++;
                 });
             }
+            disableRowButtons(true, "FormItem", ["Save"]);
         }
 
-        /* ------------------------------------------------------
-        //  Misc:
+        function onChangeFormItemDetails(){
+            disableRowButtons(false, "FormItem", ["Save"]);
+        }
+        /* ------------------------------------------------------ */
+        /*  Misc:
         // ------------------------------------------------------
         */
+        function disableRowButtons(state, groupName, buttonNames){
+            for (let i = 0, len = buttonNames.length; i < len; i++) {
+                //$("#btn-SectionDelete").prop("disabled",true);
+                let id = "#btn-" + groupName + buttonNames[i];
+                $(id).prop("disabled",state);
+            }
+        };
         function SelectElement(id, valueToSelect){    
             let element = document.getElementById(id);
             element.value = valueToSelect;

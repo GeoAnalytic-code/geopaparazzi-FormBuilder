@@ -1,25 +1,15 @@
 <?php
 /*
-	 check php.ini variables: ------
+	 Please check php.ini variables: ------
 	      post_max_size = 128M
           upload_max_filesize = 128M
 		  error_log = php_errors.log
 */
 
-    $file_path = "uploads/";		// server file-system location to save files (must exist)
+    $file_path = "uploads/";	// server file-system location to save files (must exist)
 	$header_tag = "url";		// required value in form doing the submission
     $username = $_POST["Username"];	// optional
-     
-     /*
-     Single upload
-    $file_path = $file_path . basename( $_FILES[$header_tag ]['name']);
-    if(move_uploaded_file($_FILES[$header_tag ]['tmp_name'], $file_path)) {
-        echo "success user ".$username;
-    } else{
-        echo "fail user ".$username;
-    }
-    */
-    
+         
     //Loop through each file submitted for upload:
     $success = array();
 	$failure = array();
@@ -62,7 +52,7 @@
 		message("");
 	}
 	
-	//------ Respond with some JSON text ------
+	//------ Respond to client with some JSON text ------
 	$result = array("Username" => $username, "Success"=>$success,"Failure"=>$failure);
 	echo json_encode($result);
 	

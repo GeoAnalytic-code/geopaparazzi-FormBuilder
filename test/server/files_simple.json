@@ -1,0 +1,14 @@
+{
+    "results": [{
+        "path": "/geopaparazzi/data/demo/bolzano/bolzano_field_survey_en.json",
+        "url": "tags/bolzano/bolzano_field_survey_en.json"
+    },
+    {
+        "path": "/Trails/waiparous/tags.json",
+        "url": "tags/waiparous/tags.json"
+    },
+    {
+        "path": "/Trails/trailguide/trailguide.json",
+        "url": "tags/trailguide/TrailGuide.json"
+    }]
+}
