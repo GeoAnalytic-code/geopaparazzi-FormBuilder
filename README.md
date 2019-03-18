@@ -20,10 +20,17 @@ A javascript/HTML based tool for creating geopaparazzi forms.
 
 ## Using FormBuilder
 ### Stand-alone (without a web server)
+  You can use FormBuilder with a web server.  Simply copy formbuilder.html, formbuilder.js, and formbuilder.css on to your computer or phone and open formbuilder.html with your browser.  You will need an Internet connection as FormBuilder requires (and automatically gets) the jquery and Bootstrap components.  Once the FormBuilder page has loaded, you will be able to load an existing tags.json file (using FormBuilder's File -> Open Local File menu option).  You can then edit and save the tags.json file.
+  
 ### With a Web server
+If you have the skills to set up a web server, you can make FormBuilder available from your server.  the user will then be able to load and save tags file to their local device.  If you edit the fomrbuilder.js and supply values for download and upload, your server can send and receive tags files from FormBuilder.  Edit the lines aroud 50 and 51 in formbuilder.js to supply the location of your download and upload scripts:
+```JavaScript
+        const gsServerUrlFileListSimple = "test/server/files_simple.json";
+        const gsServerUrlSaveTagFileSimple = "test/server/upload.php";
+```
+To do the download, FormBuilder expects a list of tags files in JSON format.  The "url" is the URL of tha tags file on your server.  The "path" is the eventual location of the tags file on a Geopaparazzi Android device.  Currently only the file name portion is used to name the file when saving; the full path is not currently used.
 
-Set the URL for the list of tags files
-Code some server-side scripting to return a JSON list of files:
+An example of a list of tags files:
 ```JSON
 {
     "results": [{
